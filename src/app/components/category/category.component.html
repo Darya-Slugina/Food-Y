@@ -1,0 +1,26 @@
+<div class="category-wrapper" *ngIf="food.length > 0; else message">
+  <div *ngFor="let item of food; let i = index">
+    <div
+      class="img-container"
+      (mouseover)="onMouseOn(i)"
+      (mouseleave)="onMouseOut(i)"
+      (click)="onClick(item.title)"
+    >
+      <img src="{{ item.img }}" />
+      <div class="text-container" *ngIf="selectedItem === i">
+        <p>{{ item.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #message>
+  <div class="message">
+    <p>Ooops!</p>
+    <p>No offers in this category yet</p>
+  </div>
+
+  <div class="back-icon" [routerLink]="'/menu'">
+    <img src="../../../assets/images/back-arrow.png">
+  </div>
+</ng-template>

@@ -1,0 +1,6 @@
+<form *ngIf="isFilterActive" class="search-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <input matInput placeholder={{placeholder}} (input)="onInput($event)"/>
+  </mat-form-field>
+</form>

@@ -1,0 +1,80 @@
+<div class="main">
+  <div class="info-container">
+    <div class="block">
+      <h1 class="title">Food&Y</h1>
+      <p class="text">
+        Find your favorite dish and find out where to taste it! Or share your
+        favorite dish with your friends.
+      </p>
+
+      <div class="facebook-login-btn">
+        <mat-icon>facebook</mat-icon>
+        <span class="facebook">Log in with Facebook</span>
+      </div>
+
+      <div class="line-container">
+        <div class="line"></div>
+        <div class="or">or</div>
+        <div class="line"></div>
+      </div>
+
+      <div class="form">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <div class="loginForm">
+            <input
+              placeholder="Email"
+              autocapitalize="off"
+              autocorrect="off"
+              maxlength="75"
+              name="email"
+              formControlName="email"
+              type="text"
+              class="input"
+            />
+            <input
+              placeholder="Username"
+              autocapitalize="off"
+              autocorrect="off"
+              maxlength="15"
+              minlength="5"
+              name="username"
+              formControlName="username"
+              type="text"
+              class="input"
+            />
+            <div class="password">
+              <input
+                placeholder="Password"
+                autocapitalize="off"
+                autocorrect="off"
+                minlength="6"
+                name="password"
+                formControlName="password"
+                [type]="showPassword ? 'text' : 'password'"
+                type="password"
+                class="input"
+              />
+              <a class="type-toggle" (click)="toggleShow()">
+                <mat-icon  class="eye" *ngIf="signupForm.value.password && signupForm.value.password.length> 0 && showPassword">visibility</mat-icon>
+                <mat-icon  class="eye" *ngIf="signupForm.value.password && signupForm.value.password.length> 0 && !showPassword">visibility_off</mat-icon>
+             </a>
+            </div>
+            <div class="btn-container">
+              <button class="btn" type="submit" [disabled]="!signupForm.valid">
+                Register
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="block">
+      <div class="signUp-container">
+        <p class="text">
+          Have an account?
+          <a [routerLink]="'../login'"><span class="link">Sign in</span></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

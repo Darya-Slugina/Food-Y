@@ -1,0 +1,23 @@
+form {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: rgb(150, 149, 149);
+  border-radius: 4px;
+  justify-content: flex-end;
+}
+input {
+  margin-bottom: 10px;
+  outline: none;
+  background: gainsboro;
+  border: none;
+  border-radius: 3px;
+}
+
+button {
+  width: 100px;
+  border: none;
+}

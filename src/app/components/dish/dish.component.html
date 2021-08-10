@@ -1,0 +1,100 @@
+<div *ngIf="currentDish" class="dish-container">
+  <div class="dish-title">{{ currentDish.title }}</div>
+  <div class="dish-wrapper">
+    <div class="img-wrapper">
+      <img
+        src="{{ currentDish.img }}"
+        class="dish-img"
+        (dblclick)="addToFavourite()"
+      />
+      <div class="heart-icon-wrapper" *ngIf="isHeartShow">
+        <mat-icon class="heart-icon"> favorite</mat-icon>
+      </div>
+    </div>
+    <div class="dish-info">
+      <mat-icon
+        *ngIf="!isInFavourite"
+        class="favourite-icon"
+        (click)="addToFavourite()"
+      >
+        favorite_border</mat-icon
+      >
+      <mat-icon
+        *ngIf="isInFavourite"
+        class="favourite-icon"
+        (click)="addToFavourite()"
+        style="color: red"
+        >favorite</mat-icon
+      >
+      <p [routerLink]="['/restaurant', currentDish.restaurant]">
+        <span>Restaurant: </span>
+        <span class="restaurant">@{{ currentDish.restaurant }}</span>
+      </p>
+      <div class="rating">
+        <span>Rating: </span>
+        <ngx-stars
+          class="stars"
+          [readonly]="true"
+          [size]="1"
+          [color]="'#000000'"
+          [maxStars]="5"
+          [initialStars]="currentDish.rating"
+          [animation]="false"
+          [animationSpeed]="500"
+        ></ngx-stars>
+      </div>
+      <p>
+        <span>Price: </span>{{ currentDish.price }} {{ currentDish.currency }}
+      </p>
+      <p><span>Address: </span>{{ currentDish.location }}</p>
+      <p><span>Ingredients: </span>{{ currentDish.ingredients }}</p>
+      <p><span>Description: </span>{{ currentDish.description }}</p>
+      <div class="user-info">
+        <span>Posted by: </span>
+        <div class="user-info-wrapper">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QLKE2uwuNuRA7wm5VKxwygySQAhafNN1GQ&usqp=CAU"
+            class="ava"
+          />
+          <p>@{{ currentDish.postedBy }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dish-comment-wrapper">
+    <div class="" *ngIf="isFormVisible">
+      <p class="comment-title">
+        Did you taste this dish? Leave your comment here:
+      </p>
+      <form
+        [formGroup]="commentForm"
+        (ngSubmit)="onCommentSubmit(currentDish.title, currentDish.comments)"
+      >
+        <ngx-stars
+          class="stars"
+          [readonly]="false"
+          [size]="2"
+          [color]="'#000000'"
+          [maxStars]="5"
+          (ratingOutput)="onRatingSet($event)"
+          [initialStars]="currentDish.rating"
+          [animation]="true"
+          [animationSpeed]="500"
+        ></ngx-stars>
+        <div class="comment-input">
+          <textarea
+            rows="6"
+            class="textarea"
+            formControlName="comment"
+          ></textarea>
+          <button type="submit" class="btn">Publish</button>
+        </div>
+      </form>
+    </div>
+    <div class="border">
+      <div *ngFor="let comment of currentDish.comments" >
+        <app-comment-box [comment]="comment" [user] ="user"></app-comment-box>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<div
+  class="category-wrapper"
+  *ngIf="!isLoading && favourite && favourite.length > 0; else message"
+>
+  <div class="container">
+    <div class="filters-icon" (click)="isFiltersVisible = !isFiltersVisible">
+      <mat-icon [ngClass]="isFiltersVisible ? 'open' : 'close'"
+        >filter_list</mat-icon
+      >
+    </div>
+    <div *ngIf="isFiltersVisible" class="sorter-wrapper">
+      <div class="sorters">
+        <p class="title">Sort by :</p>
+        <div
+          class="sort-btn"
+          (click)="ascendingRating = !ascendingRating"
+          (click)="sortDishes('rating', ascendingRating)"
+        >
+          <p>rating</p>
+          <mat-icon *ngIf="ascendingRating">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="!ascendingRating">keyboard_arrow_up</mat-icon>
+        </div>
+        <div
+          class="sort-btn"
+          (click)="ascendingTitle = !ascendingTitle"
+          (click)="sortDishes('title', ascendingTitle)"
+        >
+          <p>title</p>
+          <mat-icon *ngIf="ascendingTitle">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="!ascendingTitle">keyboard_arrow_up</mat-icon>
+        </div>
+        <div
+          class="sort-btn"
+          (click)="ascendingPrice = !ascendingPrice"
+          (click)="sortDishes('price', ascendingPrice)"
+        >
+          <p>price</p>
+          <mat-icon *ngIf="ascendingPrice">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="!ascendingPrice">keyboard_arrow_up</mat-icon>
+        </div>
+      </div>
+      <div class="filters">
+        <p class="title">Filter by :</p>
+        <div
+          (click)="toggleCategory = !toggleCategory"
+          tabindex="0"
+          (focusout)="toggleCategory = false"
+          style="width: 85%;
+          margin: 0 auto;"
+        >
+          <div class="sort-btn category">
+            <p>category</p>
+            <mat-icon *ngIf="toggleCategory">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="!toggleCategory">keyboard_arrow_up</mat-icon>
+          </div>
+          <div
+            class="option-wrapper"
+            *ngIf="toggleCategory"
+            (click)="onCategoryChoise($event)"
+          >
+            <p>none</p>
+            <p>main</p>
+            <p>pizza</p>
+            <p>desserts</p>
+            <p>salads</p>
+            <p>soup</p>
+            <p>pasta</p>
+            <p>drinks</p>
+            <p>sushi</p>
+            <p>from the grill</p>
+            <p>appetizer</p>
+            <p>specials</p>
+            <p>burger</p>
+            <p>kids</p>
+          </div>
+        </div>
+      </div>
+      <span class="clear" matTooltip="Clear all filters" (click)="clearFilters()">X</span>
+    </div>
+  </div>
+  <div class="dishes" *ngIf="favourite | filter: inputValue as result">
+    <div *ngFor="let item of result; let i = index">
+      <div class="img-container">
+        <div class="info-wrapper">
+          <div class="text">
+            <p>{{ item.title }}</p>
+            <p
+              class="restaurant"
+              [routerLink]="['/restaurant', item.restaurant]"
+            >
+              {{ item.restaurant }}
+            </p>
+          </div>
+          <ngx-stars
+            class="stars"
+            [readonly]="true"
+            [size]="1"
+            [color]="'#000'"
+            [maxStars]="5"
+            [initialStars]="item.rating"
+            [wholeStars]="false"
+            [animation]="false"
+            [animationSpeed]="200"
+          ></ngx-stars>
+        </div>
+        <img src="{{ item.img }}" (click)="onShowInfo(i)" />
+        <div *ngIf="isInfoVisible && selectedItem === i" class="more-info">
+          <mat-icon
+            class="eye"
+            [routerLink]="['/menu', item.category, item.title]"
+            >visibility</mat-icon
+          >
+          <div class="border"></div>
+          <mat-icon class="delete" (click)="deleteFromFavourites(item.id)"
+            >delete_forever</mat-icon
+          >
+        </div>
+      </div>
+    </div>
+    <!-- <div *ngIf="!result.length" class="noItemInfo" style="color: black;">Sorry, No dishes found!</div> -->
+  </div>
+</div>
+
+<div *ngIf="isLoading" style="font-size: 2em; font-weight: bold">
+  Loading...
+</div>
+
+<ng-template #message>
+  <div class="message" *ngIf="!isLoading">
+    <p>Ooops!</p>
+    <p>You don't have any favorite dish yet.</p>
+  </div>
+
+  <div class="back-icon" [routerLink]="'/menu'">
+    <img src="../../../assets/images/back-arrow.png" />
+  </div>
+</ng-template>

@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 15px;
+
+  .left {
+    width: 69%;
+  }
+
+  .right {
+    width: 30%;
+  }
+}

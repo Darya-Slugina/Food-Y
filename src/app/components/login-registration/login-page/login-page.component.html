@@ -1,0 +1,108 @@
+<div class="main">
+  <div class="img-container">
+    <img
+      class="img1"
+      src="https://www.twopeasandtheirpod.com/wp-content/uploads/2018/07/COBB-SALAD-1.jpg"
+    />
+    <img
+      class="img2"
+      src="https://media.istockphoto.com/photos/hamburger-with-cheese-and-french-fries-picture-id1188412964?k=6&m=1188412964&s=612x612&w=0&h=860S0kVoWTA60T4wakI8HLv-Y3fFw9jOKLSB4quEkIE="
+    />
+    <img
+      class="img3"
+      src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/homemade-pumpkin-soup-royalty-free-image-1571855802.jpg"
+    />
+    <img
+      class="img4"
+      src="https://cdn.loveandlemons.com/wp-content/uploads/2020/09/grill-recipes.jpg"
+    />
+    <img
+      class="img5"
+      src="https://www.asiafood.cz/user/articles/images/sushi-2853382_1920.jpg"
+    />
+  </div>
+  <div class="info-container">
+    <div class="block">
+      <h1 class="title">Food&Y</h1>
+      <div class="form">
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+          <div class="loginForm">
+            <input
+              placeholder="Email"
+              autocapitalize="off"
+              autocorrect="off"
+              maxlength="75"
+              name="username"
+              type="email"
+              formControlName="email"
+              class="input"
+            />
+            <div class="password">
+              <input
+                placeholder="Password"
+                autocapitalize="off"
+                autocorrect="off"
+                minlength="6"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                class="input"
+              />
+              <a class="type-toggle" (click)="toggleShow()">
+                <mat-icon
+                  class="eye"
+                  *ngIf="
+                    signinForm.value.password &&
+                    signinForm.value.password.length > 0 &&
+                    showPassword
+                  "
+                  >visibility</mat-icon
+                >
+                <mat-icon
+                  class="eye"
+                  *ngIf="
+                    signinForm.value.password &&
+                    signinForm.value.password.length > 0 &&
+                    !showPassword
+                  "
+                  >visibility_off</mat-icon
+                >
+              </a>
+            </div>
+            <div class="btn-container">
+              <button class="btn" type="submit" [disabled]="!signinForm.valid">
+                Log In
+              </button>
+            </div>
+            <div class="line-container">
+              <div class="line"></div>
+              <div class="or">or</div>
+              <div class="line"></div>
+            </div>
+
+            <div class="facebook-login-btn">
+              <mat-icon>facebook</mat-icon>
+              <span class="facebook" (click)="onFacebookLogin()">Log in with Facebook</span>
+            </div>
+            <a
+              class="forgot-password"
+              href="/accounts/password/reset/"
+              tabindex="0"
+              >Forgot password?</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="block">
+      <div class="signUp-container">
+        <p class="text">
+          Don't have an account?
+          <a [routerLink]="'../registration'"
+            ><span class="link">Sign up</span></a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

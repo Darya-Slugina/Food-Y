@@ -1,0 +1,188 @@
+{
+  "food": [
+    {
+      "id": 1,
+      "title": "Big Mac",
+      "img": "https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 5,
+      "currency": "lv",
+      "restaurant": "RibandStick",
+      "location": "Sofia, address",
+      "rating": 5,
+      "category": "burger",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": [
+        {
+          "postedBy": "user1",
+          "userImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTw4XIbF8RNpQmBAWawrX_PU6mGByTwk0h6g&usqp=CAU",
+          "postedOn": "11.05.2021",
+          "comment": "lorem"
+        },
+        {
+          "postedBy": "user2",
+          "userImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTw4XIbF8RNpQmBAWawrX_PU6mGByTwk0h6g&usqp=CAU",
+          "postedOn": "1.07.2021",
+          "comment": "loremloremkfsjdsgkhdkfjss"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Pancakes",
+      "img": "https://i2.wp.com/www.eatthis.com/wp-content/uploads/2019/11/whole-grain-pancake-stack.jpg?fit=1200%2C879&ssl=1",
+      "ingredients": ["shugar", "sweet", "honey"],
+      "price": 5,
+      "currency": "lv",
+      "restaurant": "Nedelya",
+      "location": "Sofia, RibandStick, address",
+      "rating": 2,
+      "category": "desserts",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 3,
+      "title": "Pizza",
+      "img": "https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 7,
+      "currency": "lv",
+      "restaurant": "Milenium",
+      "location": "Sofia, RibandStick, address",
+      "rating": 3,
+      "category": "pizza",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": [
+        {
+          "postedBy": "user1",
+          "userImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTw4XIbF8RNpQmBAWawrX_PU6mGByTwk0h6g&usqp=CAU",
+          "postedOn": "11.05.2021",
+          "comment": "lorem"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Pasta",
+      "img": "https://www.seriouseats.com/thmb/GSqpVkulyUZu-D6sPijmbFV_f4s=/1500x1125/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2020__03__20200224-carretteira-pasta-vicky-wasik-21-ffe68515b25f4b348cbde845a59d6a62.jpg",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 12,
+      "currency": "lv",
+      "restaurant": "Happy",
+      "location": "Sofia, RibandStick, address",
+      "rating": 1,
+      "category": "pasta",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 5,
+      "title": "Soup",
+      "img": "https://media.istockphoto.com/photos/pumpkin-and-carrot-soup-with-cream-and-parsley-picture-id541305426?k=6&m=541305426&s=612x612&w=0&h=xFtgwqU8PxEmlfFFj3efO0dSJKQwUnY3ghY8dvuIyno=",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 10,
+      "currency": "lv",
+      "restaurant": "RibandStick",
+      "location": "Sofia, RibandStick, address",
+      "rating": 4.5,
+      "category": "soup",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 6,
+      "title": "Bob soup",
+      "img": "https://static.onecms.io/wp-content/uploads/sites/9/2020/01/201308-ft-tomato-soup-with-chickpeas-and-pasta-2000.jpg",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 3,
+      "currency": "lv",
+      "restaurant": "Milenium",
+      "location": "Sofia, RibandStick, address",
+      "rating": 5,
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 7,
+      "title": "Ramen Soup",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-YJ25CpG0s3FNnRsW_ZJIqJnHdN9JJs0QHw&usqp=CAU",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 9,
+      "currency": "lv",
+      "restaurant": "Happy",
+      "location": "Sofia, RibandStick, address",
+      "rating": 3.5,
+      "category": "soup",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 8,
+      "title": "Backed Chicken",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHubENZMy-S6NxYDg3hwSJR7CtXgyrRKfqOw&usqp=CAU",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 17,
+      "currency": "lv",
+      "restaurant": "RibandStick",
+      "location": "Sofia, RibandStick, address",
+      "rating": 2.5,
+      "category": "main",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 9,
+      "title": "Chicken Piccata",
+      "img": "https://images.themodernproper.com/billowy-turkey/production/posts/2019/Chicken-Picatta-8.jpg?w=1200&auto=compress%2Cformat&fit=crop&fp-x=0.5&fp-y=0.5&dm=1599767276&s=2aa0bf00be2c34de44c1fb93a32ca68f",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 11,
+      "currency": "lv",
+      "restaurant": "Milenium",
+      "location": "Sofia, RibandStick, address",
+      "rating": 5,
+      "category": "main",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 10,
+      "title": "Chicken Tenders",
+      "img": "https://images-gmi-pmc.edge-generalmills.com/3973d54d-0004-4c06-a9d1-0843f3bf3efa.jpg",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 9,
+      "currency": "lv",
+      "restaurant": "Happy",
+      "location": "Sofia, RibandStick, address",
+      "rating": 4,
+      "category": "main",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    },
+    {
+      "id": 11,
+      "title": "Orange Salad",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ84lQDpS-bn09Rq3FQhEMxCAXUlvJyAwTGcg&usqp=CAU",
+      "ingredients": ["meat", "vegetables", "sousages"],
+      "price": 14,
+      "currency": "lv",
+      "restaurant": "RibandStick",
+      "location": "Sofia, RibandStick, address",
+      "rating": 4.5,
+      "category": "salads",
+      "postedBy": "nickname",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "comments": []
+    }
+  ]
+}

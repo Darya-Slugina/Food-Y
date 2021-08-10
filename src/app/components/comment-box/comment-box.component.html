@@ -1,0 +1,24 @@
+<div class="comment-container">
+  <div class="ava">
+    <img src="{{ comment.userImg }}" />
+    <p>@{{ comment.postedBy }}</p>
+  </div>
+  <div class="info">
+    <ngx-stars
+      class="stars"
+      [readonly]="true"
+      [size]="1"
+      [color]="'#000000'"
+      [maxStars]="5"
+      [initialStars]="comment.rating"
+      [animation]="false"
+      [animationSpeed]="500"
+    ></ngx-stars>
+    <p>{{ comment.comment }}</p>
+  </div>
+  <div class="date">{{ comment.postedOn | date: "d MMMM , y" }}</div>
+  <div *ngIf="isButtonVisible" class="buttons">
+    <mat-icon class="btn" (click)="onEditClick(comment.id)">edit</mat-icon>
+    <mat-icon class="btn" (click)="onDeleteClick(comment.id)">delete</mat-icon>
+  </div>
+</div>

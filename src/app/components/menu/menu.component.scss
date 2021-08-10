@@ -1,0 +1,41 @@
+.menu-wrapper {
+  .category-title {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 1.8em;
+    margin-top: 25px;
+  }
+
+  .category {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .item {
+      font-size: 1.3em;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      margin: 15px;
+      border-radius: 5px;
+      background: #424242;
+      color: #fff;
+      padding: 40px;
+      -webkit-box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74);
+      box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74);
+      cursor: pointer;
+      position: relative;
+
+      &:hover{
+        background: #c7c2c2;
+        color: black;
+        transform: translateX(10px) rotate(8deg) translateY(5px);
+        // transform: scale3d(1.1, 1.1, 1.1);
+      }
+    }
+  }
+}
+
+.mat-form-field-wrapper {
+  display: none !important;
+}

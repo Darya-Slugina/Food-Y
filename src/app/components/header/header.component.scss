@@ -1,0 +1,67 @@
+.navigation-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin: 15px 0 0 0;
+  justify-content: space-between;
+  border-bottom: 2px solid gray;
+  position: sticky;
+  top: -2px;
+  z-index: 2000;
+  background-color: white;
+
+  .logo-title {
+    font-family: "Pacifico", cursive;
+    font-size: 30px;
+    margin-top: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .active{
+    display: flex;
+  }
+
+  .inactive{
+    display: none;
+  }
+
+  .search-form {
+    cursor: pointer;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 15px;
+
+    .icon {
+      width: 45px;
+
+      &.active-link{
+        color: #666666;
+      }
+
+      .mat-icon {
+        background-repeat: no-repeat;
+        display: inline-block;
+        fill: currentColor;
+        font-size: 34px !important;
+        cursor: pointer;
+      }
+
+      .material-icons {
+        font-family: "Material Icons";
+        font-size: 34px;
+      }
+
+      .avatar {
+        border-radius: 50%;
+        width: 32px;
+        border: 1px solid gray;
+        cursor: pointer;
+      }
+    }
+  }
+}

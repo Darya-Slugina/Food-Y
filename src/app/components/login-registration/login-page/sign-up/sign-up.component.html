@@ -1,0 +1,7 @@
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <input type="text" placeholder="First name" name="firstName" ngModel required>
+  <input type="text" placeholder="Last name" name="lastName" ngModel required>
+  <input type="email" placeholder="Email" name="email" ngModel required>
+  <input type="password" placeholder="Password" name="password" ngModel required>
+  <button type="submit" [disabled]="!this.form.valid">Sign up</button>
+</form>

@@ -1,0 +1,61 @@
+<div *ngIf="(dishes | filter:inputValue) as results" class="cards-container">
+<mat-card *ngFor="let item of results">
+    <div class="header-info-wrapper">
+      <div class="header-info">
+        <mat-card-title>{{ item.title }}</mat-card-title>
+        <mat-card-content class="restaurant" [routerLink]="['/restaurant', item.restaurant]">{{
+          item.restaurant
+        }}</mat-card-content>
+      </div>
+      <div class="header-rating">
+        <mat-card-content>
+          <ngx-stars
+            [readonly]="true"
+            [size]="2"
+            [color]="'#FFFFFF'"
+            [maxStars]="5"
+            [initialStars]="item.rating"
+            [wholeStars]="false"
+            [animation]="false"
+            [animationSpeed]="200"
+          ></ngx-stars
+        ></mat-card-content>
+      </div>
+    </div>
+    <img class="img" mat-card-image src="{{ item.img }}" (click)="onClick(item.category, item.title)"/>
+    <div class="bottom-wrapper">
+      <div class="info-wrapper">
+        <mat-card-content
+          ><span class="title">Category:</span>
+          {{ item.ingredients }}</mat-card-content
+        >
+        <mat-card-content
+          ><span class="title">Location:</span>
+          {{ item.location }}</mat-card-content
+        >
+        <mat-card-content
+          ><span class="title">Price: </span>{{ item.price }}
+          {{ item.currency }}.</mat-card-content
+        >
+      </div>
+      <div class="user-logo">
+        <img
+          class="ava"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QLKE2uwuNuRA7wm5VKxwygySQAhafNN1GQ&usqp=CAU"
+        />
+        <p class="nickname">nickname</p>
+      </div>
+    </div>
+    <!-- <div *ngIf="!item" >Sorry, No dishes found!</div> -->
+</mat-card>
+<div *ngIf="results.length === 0" class="noItemInfo">Sorry, No dishes found!</div>
+</div>
+
+
+
+
+<!-- <cdk-virtual-scroll-viewport itemSize="100">
+  <div *cdkVirtualFor="let item of food">
+    {{ item.title }}
+  </div>
+</cdk-virtual-scroll-viewport> -->

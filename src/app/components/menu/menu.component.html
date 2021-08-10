@@ -1,0 +1,12 @@
+<div class="menu-wrapper">
+  <h3 class="category-title">{{ title }}</h3>
+  <div class="category">
+    <span
+      class="item"
+      *ngFor="let item of categories"
+      (click)="onClick($event)"
+    >
+      {{ item | uppercase }}</span
+    >
+  </div>
+</div>
