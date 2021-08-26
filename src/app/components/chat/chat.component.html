@@ -1,0 +1,26 @@
+<div class="chat-container">
+  <div *ngIf="chatData" class="message-wrapper">
+    <div
+      *ngFor="let data of chatData"
+      [ngClass]="data.from !== loggedInUser.username ? 'right' : 'left'"
+    >
+      <div class="wrapper">
+        <span class="msg-text">{{ data.msg }}</span>
+        <span class="msg-time"  matTooltip="{{data.createdAt | date}}"
+       >{{ data.createdAt | date:'shortTime' }}</span>
+
+      </div>
+    </div>
+  </div>
+  <form (ngSubmit)="onSubmit()" #f="ngForm" class="form-wrapper">
+    <textarea
+      name="input"
+      rows="3"
+      class="form-control"
+      ngModel
+      required
+      placeholder="Enter your message here..."
+    ></textarea>
+    <button class="chat-btn" type="submit" [disabled]="!f.valid">Send</button>
+  </form>
+</div>

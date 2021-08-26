@@ -29,7 +29,9 @@ export class MenuComponent implements OnInit {
 
   constructor(private router: Router, private service: FoodService ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.service._isFilterActive$.next(false);
+  }
 
   onClick(event) {
     this.category = event.target.innerText.toLowerCase();

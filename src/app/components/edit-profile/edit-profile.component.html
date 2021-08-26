@@ -1,0 +1,184 @@
+<div class="edit-profile-container">
+  <div class="title">Edit your profile!</div>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="editProfile-container">
+      <div class="inputs-wrapper">
+        <div class="left">
+          <div class="row">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              formControlName="username"
+              placeholder="Enter username"
+              [attr.disabled]="isDisabled ? 'disabled' : null"
+            />
+          </div>
+          <div class="row">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              placeholder="Enter email"
+              (change)="onEmailChange()"
+            />
+          </div>
+          <div class="row">
+            <label for="country" class="form-label">Country</label>
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              formControlName="country"
+              placeholder="Enter Country"
+            />
+          </div>
+          <div class="row">
+            <label for="liked" class="form-label">Favourite Dishes</label>
+            <textarea
+              type="text"
+              id="liked"
+              formControlName="liked"
+              class="form-control textarea"
+              rows="6"
+            ></textarea>
+          </div>
+          <div class="row">
+            <label for="about" class="form-label">About me</label>
+            <textarea
+              type="text"
+              id="about"
+              formControlName="about"
+              class="form-control textarea"
+              rows="6"
+            ></textarea>
+          </div>
+        </div>
+        <div class="right">
+          <div class="row" style="display: none">
+            <label for="img" class="form-label">Image URL</label>
+            <input
+              type="text"
+              id="img"
+              formControlName="img"
+              class="form-control"
+              placeholder="Link to image"
+              #imagePath
+              hidden
+            />
+          </div>
+          <div class="row">
+            <div class="img-wrapper">
+              <img [src]="imagePath.value" class="avatar" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="uploader">
+              <div class="btn">
+                <label for="imageUpload" class="upload-img-text"
+                  >Click here to change</label
+                >
+                <span *ngIf="imageFile" class="file-name">{{
+                  imageFile.name
+                }}</span>
+              </div>
+              <input
+                class="form-control"
+                type="file"
+                hidden
+                (change)="onFileSelected($event)"
+                id="imageUpload"
+                #uploader
+              />
+              <div [ngStyle]="{ color: 'red' }">{{ errorMessage }}</div>
+              <button
+                type="button"
+                class="upload-img-btn-big"
+                (click)="uploadImage()"
+                [disabled]="!uploader.value || errorMessage"
+              >
+                Upload!
+              </button>
+
+              <mat-progress-bar
+                mode="determinate"
+                [value]="value"
+              ></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-wrapper">
+        <button type="submit" class="button" [disabled]="!editForm.valid">
+          Add
+        </button>
+        <button type="button" class="button" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="change-email-wrapper" *ngIf="emailChangeBox">
+  <div class="change-box">
+    <div class="text">If You want to change email, please login!</div>
+    <form [formGroup]="signinForm" (ngSubmit)="onEditEmailSubmit()">
+      <div class="loginForm">
+        <input
+          placeholder="Email"
+          autocapitalize="off"
+          autocorrect="off"
+          maxlength="75"
+          name="username"
+          type="email"
+          formControlName="email"
+          class="input"
+        />
+        <div class="password">
+          <input
+            placeholder="Password"
+            autocapitalize="off"
+            autocorrect="off"
+            minlength="6"
+            name="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="input"
+          />
+          <a class="type-toggle" (click)="toggleShow()">
+            <mat-icon
+              class="eye"
+              *ngIf="
+                signinForm.value.password &&
+                signinForm.value.password.length > 0 &&
+                showPassword
+              "
+              >visibility</mat-icon
+            >
+            <mat-icon
+              class="eye"
+              *ngIf="
+                signinForm.value.password &&
+                signinForm.value.password.length > 0 &&
+                !showPassword
+              "
+              >visibility_off</mat-icon
+            >
+          </a>
+        </div>
+        <div class="btn-container">
+          <button class="btn" type="submit" [disabled]="!signinForm.valid">
+            Log In
+          </button>
+          <button class="btn" type="submit" (click)="onEmailCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

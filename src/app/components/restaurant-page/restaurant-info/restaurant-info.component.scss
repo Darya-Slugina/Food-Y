@@ -1,0 +1,34 @@
+.title {
+    font-size: 1.8em;
+    font-family: "Pacifico", cursive;
+    margin: 25px auto;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    .info-wrapper {
+        width: 100%;
+        margin-top: 40px;
+        text-align: left;
+        margin-left: 15px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+          .content-title{
+              display: flex;
+              flex-direction: row;
+              margin-bottom: 20px;
+
+              span {
+                font-family: "Pacifico", cursive;
+                margin-right: 15px;
+              }
+          }
+  
+        
+      }
+}

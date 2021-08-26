@@ -5,4 +5,7 @@ export interface User {
     email: string;
     userImg: string;
     favourites?: any;
+    country?: string;
+    liked?: string;
+    about?: string;
   }

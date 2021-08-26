@@ -35,9 +35,11 @@
     flex-direction: row;
     flex-wrap: nowrap;
     margin-top: 15px;
+    padding-bottom: 0.6em;
 
     .icon {
       width: 45px;
+      position: relative;
 
       &.active-link{
         color: #666666;
@@ -59,8 +61,39 @@
       .avatar {
         border-radius: 50%;
         width: 32px;
-        border: 1px solid gray;
+        height: 32px;
+        // border: 1px solid gray;
         cursor: pointer;
+      }
+    }
+
+    .user-menu {
+      position: absolute;
+      width: 120px;
+      top: 37px;
+      left:-74px;
+
+      .container {
+        color: white;
+        background-color: #424242;
+        border-radius: 5px;
+        -webkit-box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74);
+        box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74) !important;
+
+        .wrapper{
+          padding: 5px 10px 2px 10px;
+
+          p{
+            cursor: pointer;
+  
+            &:hover{
+              font-size: 1.1em;
+            }
+          }
+
+        }
+
+        
       }
     }
   }

@@ -12,7 +12,7 @@ import { FilterRestaurantsPipe } from './filterRestaurants.pipe';
 })
 export class SideNavComponent implements OnInit {
   restaurants: string[];
-  input: string;
+  input: string = '';
 
   constructor(private service: FoodService) {}
 

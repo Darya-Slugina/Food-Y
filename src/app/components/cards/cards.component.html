@@ -1,11 +1,19 @@
-<div *ngIf="(dishes | filter:inputValue) as results" class="cards-container">
-<mat-card *ngFor="let item of results">
+<div
+  *ngIf="dishesToShow| filter: inputValue as results"
+  class="cards-container"
+>
+  <mat-card  *ngFor="let item of results">
     <div class="header-info-wrapper">
       <div class="header-info">
-        <mat-card-title>{{ item.title }}</mat-card-title>
-        <mat-card-content class="restaurant" [routerLink]="['/restaurant', item.restaurant]">{{
-          item.restaurant
-        }}</mat-card-content>
+        <mat-card-title
+          [routerLink]="['/restaurant', item.restaurant, '/info']"
+          >{{ item.title }}</mat-card-title
+        >
+        <mat-card-content
+          class="restaurant"
+          [routerLink]="['/restaurant', item.restaurant]"
+          >{{ item.restaurant }}</mat-card-content
+        >
       </div>
       <div class="header-rating">
         <mat-card-content>
@@ -22,40 +30,45 @@
         ></mat-card-content>
       </div>
     </div>
-    <img class="img" mat-card-image src="{{ item.img }}" (click)="onClick(item.category, item.title)"/>
+    <div class="img-wrapper">
+      <img
+        class="img"
+        mat-card-image
+        src="{{ item.img }}"
+        (click)="onClick(item.category, item.title)"
+      />
+    </div>
     <div class="bottom-wrapper">
       <div class="info-wrapper">
         <mat-card-content
-          ><span class="title">Category:</span>
-          {{ item.ingredients }}</mat-card-content
-        >
+          ><span class="card-category-title">Ingredients:</span>
+          <span class="card-category-text">{{ item.ingredients }}</span>
+        </mat-card-content>
         <mat-card-content
-          ><span class="title">Location:</span>
+          ><span class="card-category-title">Location:</span>
           {{ item.location }}</mat-card-content
         >
         <mat-card-content
-          ><span class="title">Price: </span>{{ item.price }}
+          ><span class="card-category-title">Price: </span>{{ item.price }}
           {{ item.currency }}.</mat-card-content
         >
       </div>
-      <div class="user-logo">
-        <img
-          class="ava"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QLKE2uwuNuRA7wm5VKxwygySQAhafNN1GQ&usqp=CAU"
-        />
-        <p class="nickname">nickname</p>
+      <div class="user-logo" [routerLink]="['/users', item.postedBy]">
+        <img class="ava" src="{{ item.postedByImg }}" />
+        <p class="nickname">{{ item.postedBy }}</p>
       </div>
     </div>
-    <!-- <div *ngIf="!item" >Sorry, No dishes found!</div> -->
-</mat-card>
-<div *ngIf="results.length === 0" class="noItemInfo">Sorry, No dishes found!</div>
+  </mat-card>
+  <div *ngIf="results.length === 0" class="noItemInfo">
+    Sorry, No dishes found!
+  </div>
 </div>
 
-
-
-
-<!-- <cdk-virtual-scroll-viewport itemSize="100">
-  <div *cdkVirtualFor="let item of food">
-    {{ item.title }}
-  </div>
-</cdk-virtual-scroll-viewport> -->
+<div
+  *ngIf="page === 'home'"
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="onScroll()"
+></div>

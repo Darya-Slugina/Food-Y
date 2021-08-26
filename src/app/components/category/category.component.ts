@@ -12,6 +12,7 @@ export class CategoryComponent implements OnInit {
   category: string;
   food: Dish[];
   selectedItem: number = -1;
+  inputValue: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class CategoryComponent implements OnInit {
     this.service
       .getFoodsByCategory(this.category)
       .subscribe((res) => (this.food = res));
+      this.service.input.subscribe((res) => (this.inputValue = res));
   }
 
   onMouseOn(index: number) {

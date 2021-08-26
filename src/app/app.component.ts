@@ -6,6 +6,7 @@ import { Dish } from './shared/models/food.model';
 
 import { AuthService } from './shared/services/auth.service';
 import { FoodService } from './shared/services/food.service';
+import { UserService } from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,17 +14,18 @@ import { FoodService } from './shared/services/food.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  public dishes$: Observable<Dish[]> = of([]);
+  // public dishes$: Observable<Dish[]> = of([]); // store
 
   constructor(
     private router: Router,
     private service: FoodService,
-    private authUserService: AuthService
+    private authUserService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.service.setDishesInStore();
-
+    // this.service.setDishesInStore(); // store
+    // this.userService.getAllUsers();
     const user = localStorage.getItem('user');
 
     if (user) {

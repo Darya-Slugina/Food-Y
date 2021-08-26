@@ -1,3 +1,10 @@
-<p>
-  restaurant-page works!
-</p>
+<div class="grid-wrapper">
+  <ag-grid-angular
+    style="width: 86%; height: 450px"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    (rowClicked)="rowClickedEvent($event)"
+  >
+  </ag-grid-angular>
+</div>

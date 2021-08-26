@@ -1,5 +1,5 @@
 <div class="comment-container">
-  <div class="ava">
+  <div class="ava" [routerLink]="['/users', comment.postedBy]">
     <img src="{{ comment.userImg }}" />
     <p>@{{ comment.postedBy }}</p>
   </div>

@@ -1,5 +1,0 @@
-<form (ngSubmit)="onSubmit(form)" #form="ngForm">
-  <input type="email" placeholder="Email" name="email" ngModel required>
-  <input type="password" placeholder="Password" name="password" ngModel required>
-  <button type="submit" [disabled]="!this.form.valid">Sign in</button>
-</form>

@@ -1,0 +1,148 @@
+<div class="title">Add your favourite Dish here!</div>
+
+<div class="add-container">
+  <form [formGroup]="addDishForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+        placeholder="Enter Title"
+        [ngStyle]="editMode && { color: 'white' }"
+        [attr.disabled]="editMode ? 'disabled' : null"
+      />
+    </div>
+    <div class="row">
+      <label for="restaurant" class="form-label">Restaurant</label>
+      <input
+        type="text"
+        class="form-control"
+        id="restaurant"
+        formControlName="restaurant"
+        placeholder="Enter Restaurant"
+        #name
+        (change)="getAddress(name.value)"
+      />
+    </div>
+    <div class="row">
+      <label for="address" class="form-label">Address</label>
+      <input
+        type="text"
+        class="form-control"
+        id="address"
+        formControlName="address"
+        placeholder="Enter Address"
+      />
+    </div>
+    <div class="row">
+      <label for="imageUpload" class="form-label">Image Upload</label>
+      <div class="uploader">
+        <div class="btn">
+          <label for="imageUpload" class="upload-img-btn">Choose File</label>
+          <span *ngIf="imageFile" class="file-name">{{ imageFile.name }}</span>
+        </div>
+        <input
+          class="form-control"
+          type="file"
+          hidden
+          (change)="onFileSelected($event)"
+          id="imageUpload"
+          #uploader
+        />
+        <div [ngStyle]="{ color: 'red' }">{{ errorMessage }}</div>
+        <button
+          type="button"
+          class="upload-img-btn-big"
+          (click)="uploadImage()"
+          [disabled]="!uploader.value || errorMessage"
+        >
+          Upload!
+        </button>
+
+        <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
+      </div>
+    </div>
+
+    <div class="row" style="display: none">
+      <label for="img" class="form-label">Image URL</label>
+      <input
+        type="text"
+        id="img"
+        formControlName="img"
+        class="form-control"
+        placeholder="Link to image"
+        #imagePath
+        hidden
+      />
+    </div>
+    <div class="row">
+      <div class="img-wrapper">
+        <img [src]="imagePath.value" class="img-responsive" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="number"
+        name="price"
+        id="price"
+        class="form-control"
+        formControlName="price"
+        placeholder="Enter price"
+      />
+    </div>
+    <div class="row">
+      <label for="rating" class="form-label">Your rating</label>
+      <input
+        type="number"
+        name="rating"
+        id="rating"
+        class="form-control"
+        formControlName="rating"
+        placeholder="Enter rating form 0 to 5"
+      />
+    </div>
+    <div class="row">
+      <label for="category" class="form-label">Category</label>
+      <select
+        id="category"
+        class="form-control"
+        name="category"
+        formControlName="category"
+      >
+        <option value="" disabled>Choose a category</option>
+        <option *ngFor="let category of categories" [ngValue]="category" class="option">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="description" class="form-label">Main ingredients</label>
+      <textarea
+        type="text"
+        id="ingredients"
+        formControlName="ingredients"
+        class="form-control textarea"
+        rows="6"
+      ></textarea>
+    </div>
+    <div class="row">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        type="text"
+        id="description"
+        formControlName="description"
+        class="form-control textarea"
+        rows="6"
+      ></textarea>
+    </div>
+    <div class="btn-wrapper">
+      <button type="submit" class="button" [disabled]="!addDishForm.valid">
+        {{ editMode ? "Edit" : "Add" }}
+      </button>
+      <button type="button" class="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

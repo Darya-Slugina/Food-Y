@@ -13,5 +13,6 @@ export interface Dish {
   category: string;
   description: string;
   postedBy: string;
+  postedByImg: string;
   comments:Comment[];
 }

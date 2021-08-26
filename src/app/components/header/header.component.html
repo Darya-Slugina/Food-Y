@@ -1,23 +1,62 @@
 <nav class="navigation-container">
-  <div class="logo-title" [routerLink]="'/home'" (click)="onHomeClick()">FooD&Y</div>
+  <div class="logo-title" [routerLink]="'/home'" (click)="onHomeClick()">
+    FooD&Y
+  </div>
   <app-input
     placeholder="Ex. Pizza"
     label="Find your Favorite food"
     inputType="header"
   ></app-input>
   <div class="menu-container">
-    <div class="icon" [routerLink]="'./home'" routerLinkActive="active-link" (click)="onHomeClick()"><mat-icon>home</mat-icon></div>
-    <div class="icon" [routerLink]="'./restaurant'" routerLinkActive="active-link"><mat-icon>store</mat-icon></div>
-    <div class="icon" routerLinkActive="active-link"><mat-icon> near_me</mat-icon></div>
-    <div class="icon" [routerLink]="'./menu'"  routerLinkActive="active-link" (click)="onMenuClick()">
+    <div
+      class="icon"
+      [routerLink]="'./home'"
+      routerLinkActive="active-link"
+      (click)="onHomeClick()"
+    >
+      <mat-icon>home</mat-icon>
+    </div>
+    <div
+      class="icon"
+      [routerLink]="'./restaurant'"
+      routerLinkActive="active-link"
+    >
+      <mat-icon>store</mat-icon>
+    </div>
+    <div class="icon" (click)="onChatClick()" [routerLink]="'./users'" routerLinkActive="active-link">
+      <mat-icon> near_me</mat-icon>
+    </div>
+    <div
+      class="icon"
+      [routerLink]="'./menu'"
+      routerLinkActive="active-link"
+      (click)="onMenuClick()"
+    >
       <mat-icon> restaurant_menu</mat-icon>
     </div>
-    <div class="icon" [routerLink]="'./favourites'" routerLinkActive="active-link"><mat-icon> favorite_border</mat-icon></div>
-    <div class="icon" (click)="onImgClick()" routerLinkActive="active-link">
-      <img *ngIf="user"
-        class="avatar"
-        src={{user.userImg}}
-      />
+    <div
+      class="icon"
+      [routerLink]="'./favourites'"
+      routerLinkActive="active-link"
+    >
+      <mat-icon> favorite_border</mat-icon>
+    </div>
+    <div
+      class="icon"
+      routerLinkActive="active-link"
+      (mouseenter)="onImgClick()"
+      (mouseleave)="onBlur()"
+    >
+      <img *ngIf="user" class="avatar" src="{{ user.userImg }}" />
+      <div class="user-menu" *ngIf="isMenuVisible">
+        <div class="container">
+          <div class="wrapper">
+            <p (click)="onViewProfile()">View Profile</p>
+            <p (click)="onAddDish()">Add new Dish</p>
+            <p (click)="onLogOut()">Log Out</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

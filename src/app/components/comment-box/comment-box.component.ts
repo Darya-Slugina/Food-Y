@@ -1,11 +1,14 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { Comment } from 'src/app/shared/models/comment.model';
 import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -14,25 +17,30 @@ import { User } from 'src/app/shared/models/user.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class CommentBoxComponent implements OnInit {
+  public isButtonVisible: boolean;
+  user: User;
   @Input() comment: Comment;
-  @Input() user: User;
-  isButtonVisible: boolean;
+  @Output() onEdit = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
 
-  constructor() {}
+  constructor(private authUserService: AuthService) {}
 
   ngOnInit() {
-    if (this.user && this.user.username === this.comment.postedBy) {
-      this.isButtonVisible = true;
-    } else {
-      this.isButtonVisible = false;
-    }
+    this.authUserService.userInfo.subscribe((res) => {
+        this.user = res;
+        if (this.user && this.user.username === this.comment.postedBy) {
+          this.isButtonVisible = true;
+        } else {
+          this.isButtonVisible = false;
+        }
+      });
   }
 
   onEditClick(id: string) {
-    console.log(id);
+    this.onEdit.emit(id);
   }
 
   onDeleteClick(id: string) {
-    console.log(id);
+    this.onDelete.emit(id);
   }
 }

@@ -12,6 +12,7 @@
       "rating": 5,
       "category": "burger",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": [
         {
@@ -40,6 +41,7 @@
       "rating": 2,
       "category": "desserts",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -55,6 +57,7 @@
       "rating": 3,
       "category": "pizza",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": [
         {
@@ -77,6 +80,7 @@
       "rating": 1,
       "category": "pasta",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -92,6 +96,7 @@
       "rating": 4.5,
       "category": "soup",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -106,6 +111,7 @@
       "location": "Sofia, RibandStick, address",
       "rating": 5,
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -121,6 +127,7 @@
       "rating": 3.5,
       "category": "soup",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -136,6 +143,7 @@
       "rating": 2.5,
       "category": "main",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -151,6 +159,7 @@
       "rating": 5,
       "category": "main",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -166,6 +175,7 @@
       "rating": 4,
       "category": "main",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     },
@@ -181,8 +191,11 @@
       "rating": 4.5,
       "category": "salads",
       "postedBy": "nickname",
+      "postedByImg": "https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "comments": []
     }
   }
 }
+
+

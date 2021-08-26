@@ -26,6 +26,8 @@
         style="color: red"
         >favorite</mat-icon
       >
+      <mat-icon *ngIf="isEditDishAllow" class="edit-icon" [routerLink]="'./edit'">edit</mat-icon>
+      <mat-icon  *ngIf="isEditDishAllow" class="delete-icon" (click)="onDeleteDish()">delete_outline</mat-icon>
       <p [routerLink]="['/restaurant', currentDish.restaurant]">
         <span>Restaurant: </span>
         <span class="restaurant">@{{ currentDish.restaurant }}</span>
@@ -47,16 +49,16 @@
         <span>Price: </span>{{ currentDish.price }} {{ currentDish.currency }}
       </p>
       <p><span>Address: </span>{{ currentDish.location }}</p>
-      <p><span>Ingredients: </span>{{ currentDish.ingredients }}</p>
-      <p><span>Description: </span>{{ currentDish.description }}</p>
+      <p class="ingredients"><span>Ingredients: </span>{{ currentDish.ingredients }}</p>
+      <p class="description"><span>Description: </span>{{ currentDish.description }}</p>
       <div class="user-info">
-        <span>Posted by: </span>
-        <div class="user-info-wrapper">
+        <span class="postedBy">Posted by: </span>
+        <div class="user-info-wrapper" [routerLink]="['/users', currentDish.postedBy]">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QLKE2uwuNuRA7wm5VKxwygySQAhafNN1GQ&usqp=CAU"
+            src={{currentDish.postedByImg}}
             class="ava"
           />
-          <p>@{{ currentDish.postedBy }}</p>
+          <span>@{{ currentDish.postedBy }}</span>
         </div>
       </div>
     </div>
@@ -87,13 +89,22 @@
             class="textarea"
             formControlName="comment"
           ></textarea>
-          <button type="submit" class="btn">Publish</button>
+          <button type="submit" class="btn">
+            {{ editMode ? "Edit" : "Publish" }}
+          </button>
         </div>
       </form>
     </div>
-    <div class="border">
-      <div *ngFor="let comment of currentDish.comments" >
-        <app-comment-box [comment]="comment" [user] ="user"></app-comment-box>
+    <div
+      class="border"
+      *ngIf="currentDish.comments && currentDish.comments.length"
+    >
+      <div *ngFor="let comment of currentDish.comments; let i = index">
+        <app-comment-box
+          [comment]="comment"
+          (onEdit)="editComment()"
+          (onDelete)="deleteComment(i)"
+        ></app-comment-box>
       </div>
     </div>
   </div>

@@ -1,79 +1,166 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { DataStorageService } from './api-food.service';
-import { Comment } from 'src/app/shared/models/comment.model';
-import { Dish } from '../models/food.model';
 import { AuthService } from './auth.service';
 import { User } from '../models/user.model';
 import { UserStorageService } from './api-user.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   user: User;
-  //   private _dish$ = new BehaviorSubject<any>(null);
-  //   public readonly dishes = this._dish$.asObservable();
-  //   public readonly dishesArray = this._dish$
-  //     .asObservable()
-  //     .pipe(map((dish) => this.getFoodAsArray(dish)));
 
-  //   public _input$ = new BehaviorSubject<any>(null);
-  //   public readonly input = this._input$.asObservable();
-
-  //   public _inputRes$ = new BehaviorSubject<any>(null);
-  //   public readonly inputRes = this._inputRes$.asObservable();
-
-  //   public _isFilterActive$ = new BehaviorSubject<any>(true);
-  //   public readonly isFilterActive = this._isFilterActive$.asObservable();
+  private _allUsers$ = new BehaviorSubject<any>(null);
+  public readonly allUsers = this._allUsers$.asObservable();
+  public readonly allUsersArray = this._allUsers$
+    .asObservable()
+    .pipe(map((users) => this.getUsersAsArray(users)));
 
   constructor(
     private authUserService: AuthService,
-    private apiUserService: UserStorageService
+    private apiUserService: UserStorageService,
+    public afAuth: AngularFireAuth
   ) {
-    this.authUserService.userInfo.subscribe((res) => (this.user = res));
+    this.getAllUsers();
   }
 
-//   public addToFavouriteDish(dishId, userId): void {
-//     console.log(dishId, userId, this.user, 'dishId');
-//     this.user.favourites = [];
-//     this.user.favourites.push(dishId);
-//     console.log(this.user, 'new');
+  public getUser() {
+    return this.authUserService.userInfo.pipe(filter((user) => user !== null));
+  }
 
-//     this.apiUserService.addNewUser(this.user, userId).subscribe((res) => {
-//       console.log(res);
-//     });
+  public getAllUsers() {
+    this.apiUserService
+      .fetchUsers()
+      // .pipe(shareReplay())
+      // .pipe(filter((users) => users !== null))
+      .subscribe((users) => {
+        this._allUsers$.next(users);
+      });
+  }
 
-    // this.apiService.addNewMovie(movie).subscribe((res: Movie) => {
-    //   const obj = {};
-    //   obj[res.title] = res;
-    //   this._movies$.next({
-    //     ...this._movies$.value,
-    //     ...obj,
-    //   });
-    // });
-//   }
+  public getCurrentUser(username) {
+    return this.allUsersArray.pipe(
+      filter((users) => users !== null),
+      map((users) => users.find((item) => item.username === username))
+    );
+  }
 
-  // public getMovie(title: string): Observable<Movie> {
-  //   return this._movies$.pipe(
-  //     filter((movies) => movies !== null),
-  //     map(movies => movies[title]))
-  // }
+  public isDishInFavourite(dishId: number) {
+    return this.authUserService.userInfo.pipe(
+      filter((user) => user !== null),
+      map((user) => {
+        if (user.favourites) {
+          return user.favourites.includes(dishId);
+        }
+      })
+    );
+  }
 
-  // public deleteMovie(title: string): void {
-  //   this.apiService.deleteMovie(title).subscribe(() => {
-  //     const currentMovies = this._movies$.value;
-  //     delete currentMovies[title];
-  //     this._movies$.next(currentMovies);
-  //   });
-  // }
+  public addToFavouriteDish(dishId, userId): void {
+    let user: User;
+    this.authUserService.userInfo.subscribe((res) => (user = res));
 
-//   private getFoodAsArray(food: any) {
-//     const resultArr = [];
-//     for (let prop in food) {
-//       resultArr.push(food[prop]);
-//     }
-//     return resultArr;
-//   }
+    if (user.favourites) {
+      user.favourites.push(dishId);
+    } else {
+      user.favourites = [];
+      user.favourites.push(dishId);
+    }
+
+    this.apiUserService.addNewUser(user, userId).subscribe((User) => {
+      this.authUserService.updateUserInfo(User);
+    });
+  }
+
+  public deleteFromFavouriteDish(dishId, userId) {
+    let user: User;
+    this.authUserService.userInfo.subscribe((res) => (user = res));
+
+    let newUser = user.favourites.filter((item) => item !== dishId);
+    user.favourites = newUser;
+
+    this.apiUserService.addNewUser(user, userId).subscribe((res) => {
+      this.authUserService.updateUserInfo(res);
+    });
+  }
+
+  public isSelfComment(currentDish) {
+    return this.authUserService.userInfo.pipe(
+      filter((user) => user !== null),
+      map((user) => {
+        if (currentDish.comments) {
+          return currentDish.comments.find(
+            (item) => item.postedBy === user.username
+          );
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  public isSelfDish(currentDish) {
+    return this.authUserService.userInfo.pipe(
+      filter((user) => user !== null),
+      map((user) => {
+        if (currentDish.postedBy === user.username) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+  }
+
+  public changeUserInfo(
+    userObj: any,
+    favourites: number[],
+    email: string,
+    password: string
+  ) {
+    let newUser = {
+      username: userObj.username,
+      email: userObj.email,
+      userImg: userObj.img,
+      favourites: favourites,
+      country: userObj.country,
+      liked: userObj.liked,
+      about: userObj.about,
+    };
+    let userId = JSON.parse(localStorage.getItem('user'));
+
+    let user;
+    this.afAuth.onAuthStateChanged((res) => {
+      user = res;
+
+      if (user.email !== userObj.email) {
+        this.afAuth
+          .signInWithEmailAndPassword(email, password)
+          .then(function (userCredential) {
+            userCredential.user.updateEmail(userObj.email);
+          });
+      }
+    });
+
+    this.apiUserService.updateUser(newUser, userId).subscribe((res) => {
+      this.authUserService.setUserInfo(userId);
+
+      const obj = {};
+      obj[userId] = res;
+      this._allUsers$.next({
+        ...this._allUsers$.value,
+        ...obj,
+      });
+    });
+  }
+
+  private getUsersAsArray(users) {
+    const resultArr = [];
+    for (let prop in users) {
+      resultArr.push(users[prop]);
+    }
+    return resultArr;
+  }
 }

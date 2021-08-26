@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Dish } from 'src/app/shared/models/food.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-favourites',
@@ -13,11 +14,11 @@ import { FoodService } from 'src/app/shared/services/food.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FavouritesComponent implements OnInit {
-  public dishes$: Observable<Dish[]> = of([]);
-  public food: number[];
-  // public dishes: Dish[];
-  public favourite: any;
-  inputValue: string;
+  // public dishes$: Observable<Dish[]> = of([]); // store
+  public favouriteFoodsId: number[];
+  public dishes: Dish[];
+  public favourite: Dish[];
+  public inputValue: string;
   public isLoading: boolean = true;
   public isInfoVisible: boolean = false;
   public isFiltersVisible: boolean = false;
@@ -25,34 +26,49 @@ export class FavouritesComponent implements OnInit {
   public ascendingRating: boolean = true;
   public ascendingPrice: boolean = true;
   public ascendingTitle: boolean = true;
-  public selected = 'main';
   public toggleCategory: boolean = false;
+  message: string = '';
+  private destroy$ = new Subject();
 
   constructor(
     private authUserService: AuthService,
     private service: FoodService,
-    private store: Store<{ dishes: Dish[] }>
+    private route: ActivatedRoute, // private store: Store<{ dishes: Dish[] }> //store
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.dishes$ = this.store.select('dishes');
+    this.service.dishesArray.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+      this.dishes = res;
+    });
+
+    // this.dishes$ = this.store.select('dishes'); // with store
     this.service.input.subscribe((res) => (this.inputValue = res));
     this.service._isFilterActive$.next(false);
 
     this.authUserService.userInfo
       .pipe(filter((user) => user !== null))
       .subscribe((res) => {
-        this.food = res.favourites;
-
-        if (this.food) {
-          this.favourite = [];
-          this.dishes$.subscribe((res) => {
-            this.favourite = res.filter((item) => this.food.includes(item.id));
-            this.isLoading = false;
-          });
+        this.favouriteFoodsId = res.favourites;
+        if (this.favouriteFoodsId) {
+          this.service
+            .getFavouritesDishes(this.favouriteFoodsId)
+            .subscribe((res) => {
+              this.favourite = res;
+              this.isLoading = false;
+            });
         } else {
           this.isLoading = false;
         }
+        // ------- With store ---------
+        // this.favourite = [];
+        // this.dishes$.subscribe((res) => {
+        //   this.favourite = res.filter((item) => this.favouriteFoodsId.includes(item.id));
+        //   this.isLoading = false;
+        // });
+        //   } else {
+        //     this.isLoading = false;
+        //   }
       });
   }
 
@@ -62,14 +78,12 @@ export class FavouritesComponent implements OnInit {
   }
 
   onHideInfo() {
-    console.log(111);
-
     this.isInfoVisible = !this.isInfoVisible;
   }
 
   deleteFromFavourites(dishId) {
     let userId = JSON.parse(localStorage.getItem('user'));
-    this.authUserService.deleteFromFavouriteDish(dishId, userId);
+    this.userService.deleteFromFavouriteDish(dishId, userId);
     this.isInfoVisible = false;
   }
 
@@ -96,22 +110,43 @@ export class FavouritesComponent implements OnInit {
 
   onCategoryChoise(event) {
     let category = event.target.innerText;
-    let favourite = [];
-    let filtering = [];
-    this.dishes$.subscribe((res) => {
-      favourite = res.filter((item) => this.food.includes(item.id));
-      filtering = favourite.filter((dish) => dish.category === category);
-      if (category === 'none') {
-        this.favourite = favourite;
-      } else {
-        this.favourite = filtering;
-      }
-    });
+    let favourite = this.dishes.filter((item) =>
+      this.favouriteFoodsId.includes(item.id)
+    );
+    let filtering = favourite.filter((dish) => dish.category === category);
+    if (category === 'none') {
+      this.favourite = favourite;
+    } else {
+      this.favourite = filtering;
+    }
   }
 
+  // ------- With store ---------
+  // let favourite = [];
+  // let filtering = [];
+  // this.dishes$.subscribe((res) => {
+  //   favourite = res.filter((item) => this.food.includes(item.id));
+  //   filtering = favourite.filter((dish) => dish.category === category);
+  //   if (category === 'none') {
+  //     this.favourite = favourite;
+  //   } else {
+  //     this.favourite = filtering;
+  //   }
+  // });
+
   clearFilters() {
-    this.dishes$.subscribe((res) => {
-      this.favourite = res.filter((item) => this.food.includes(item.id));
-    });
+    this.favourite = this.dishes.filter((item) =>
+      this.favouriteFoodsId.includes(item.id)
+    );
+
+    // ------- With store ---------
+    // this.dishes$.subscribe((res) => {
+    //   this.favourite = res.filter((item) => this.food.includes(item.id));
+    // });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

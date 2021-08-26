@@ -1,0 +1,41 @@
+<div *ngIf="user" class="user-page-container">
+  <div *ngIf="isEditProfileAllow" class="title">
+    Welcome, {{ user.username }} !
+  </div>
+  <div *ngIf="!isEditProfileAllow" class="title">{{ user.username }}</div>
+  <div class="info-wrapper">
+    <mat-icon
+      *ngIf="isEditProfileAllow"
+      class="edit-icon"
+      [routerLink]="'./edit'"
+      >edit</mat-icon
+    >
+    <div class="left">
+      <div class="avatar-wrapper">
+        <img src="{{ user.userImg }}" class="avatar" />
+      </div>
+    </div>
+    <div class="right">
+      <div class="wrapper">
+        <span class="heading">Username: </span>
+        <span class="text">{{ user.username }}</span>
+      </div>
+      <div class="wrapper">
+        <span class="heading">Country: </span>
+        <span class="text">{{ user.country }}</span>
+      </div>
+      <div class="wrapper">
+        <span class="heading">My preferences: </span>
+        <span class="text">{{ user.liked }}</span>
+      </div>
+      <div class="wrapper" *ngIf="user.about">
+        <span class="heading">About me: </span>
+        <span class="text">{{ user.about }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="title" *ngIf="dishes.length">My Dishes:</div>
+  <div *ngIf="dishes.length" class="dishes-container">
+    <img *ngFor="let item of dishes" src={{item.img}} [routerLink]="['/menu', item.category, item.title]">
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { addComment, filterDishes, setDishes } from './food.actions';
 
 
 export const initialState: ReadonlyArray<Dish> = [];
+// export const initialState: any = {};
 
 export const foodsReducer = createReducer(
   initialState,

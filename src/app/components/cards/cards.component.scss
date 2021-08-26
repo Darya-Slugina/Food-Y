@@ -9,14 +9,16 @@
     margin: 15px 15px 25px 15px;
     -webkit-box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74);
     box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74) !important;
-  
+
     .header-info-wrapper {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: space-between;
-  
+
       .header-info {
+        color: white;
+
         .mat-card-title {
           text-align: start !important;
           margin-top: 10px;
@@ -31,58 +33,74 @@
           cursor: pointer;
         }
       }
-  
+
       .header-rating {
         .stars-line {
           margin-top: 15px;
         }
       }
     }
-  
-    .img {
+
+    .img-wrapper{
       width: 580px;
       height: 350px;
-      // margin-top: 15px;
-      border-radius: 5px;
-      cursor: pointer;
+      margin-top: 10px;
+
+      .img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     }
-  
+
     .bottom-wrapper {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: space-between;
-  
+
       .info-wrapper {
         width: 80%;
         text-align: left;
         margin-left: 15px;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  
-        .title {
-          // font-style: italic;
+
+        .card-category-title {
           font-family: "Pacifico", cursive;
+        }
+
+        .card-category-text {
+          display: inline-block;
+          width: 240px;
+          max-width: 350px;
+          margin-left: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          margin-bottom: -5px;
         }
       }
       .user-logo {
         width: 20%;
+        cursor: pointer;
         .ava {
           width: 65px;
           height: 65px;
           border-radius: 50%;
+          background-color: white;
+          border: 1px solid white;
         }
       }
     }
   }
 
-  .noItemInfo{
+  .noItemInfo {
     color: black;
     height: 20px;
     display: block;
     text-align: center;
-
   }
 }
-
-

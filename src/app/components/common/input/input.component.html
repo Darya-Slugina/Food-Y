@@ -1,6 +1,15 @@
-<form *ngIf="isFilterActive" class="search-form">
+<form *ngIf="isFilterActive" class="search-form" #f="ngForm">
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>{{label}}</mat-label>
-    <input matInput placeholder={{placeholder}} (input)="onInput($event)"/>
+    <mat-label>{{ label }}</mat-label>
+    <input
+      matInput
+      placeholder="{{ placeholder }}"
+      (input)="onInput($event)"
+      tabindex="1"
+      ngModel
+      name="first"
+      #first="ngModel"
+      (click)="clearInput(f)"
+    />
   </mat-form-field>
 </form>

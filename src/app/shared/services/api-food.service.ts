@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comment } from 'src/app/shared/models/comment.model';
+import { Dish } from '../models/food.model';
+import { filter, share } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -20,16 +22,22 @@ export class DataStorageService {
     );
   }
 
-  //   addNewDish(dish: any) {
-  //     return this.http.put(
-  //       `https://angular-project-e49e1-default-rtdb.firebaseio.com/movies/${movie.title}.json`,
-  //       movie
-  //     );
-  //   }
+  deleteComment(title: string, id: number): Observable<{}> {
+    return this.http.delete(
+      `https://foody-21ab7-default-rtdb.europe-west1.firebasedatabase.app/food/${title}/comments/${id}.json`
+    );
+  }
 
-  //   deleteDish(title: string): Observable<{}> {
-  //     return this.http.delete(
-  //       `https://angular-project-e49e1-default-rtdb.firebaseio.com/movies/${title}.json`
-  //     );
-  //   }
+  addDish(dish: Dish) {
+    return this.http.put(
+      `https://foody-21ab7-default-rtdb.europe-west1.firebasedatabase.app/food/${dish.title}.json`,
+      dish
+    );
+  }
+
+  deleteDish(title: string): Observable<{}> {
+    return this.http.delete(
+      `https://foody-21ab7-default-rtdb.europe-west1.firebasedatabase.app/food/${title}.json`
+    );
+  }
 }

@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserStorageService } from './api-user.service';
 import firebase from 'firebase/app';
-import { Store } from '@ngrx/store';
+// import { Store } from '@ngrx/store'; //store
+import { filter, map } from 'rxjs/operators';
 // import { setUser } from 'src/app/store/user.actions';
 
 @Injectable({
@@ -21,12 +22,12 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     public router: Router,
     private apiUserService: UserStorageService,
-    private userStore: Store<{ user: User }>
+    // private userStore: Store<{ user: User }> // store
   ) {
-    this.user$ = this.userStore.select('user');
+    // this.user$ = this.userStore.select('user'); // store
   }
 
-  signUp(form) {
+  public signUp(form) {
     return this.afAuth
       .createUserWithEmailAndPassword(form.email, form.password)
       .then((res) => {
@@ -36,7 +37,7 @@ export class AuthService {
           email: user.email,
           username: form.username,
           userImg:
-            'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/easiest-ever-fruit-and-coconut-ice-cream-1589550075.jpg',
+            'https://firebasestorage.googleapis.com/v0/b/foody-21ab7.appspot.com/o/NicePng_user-icon-png_1280406.png?alt=media&token=a591940d-219f-4c7d-b1b7-b05b1faaae3e',
           favourites: [],
         };
         this.apiUserService.addNewUser(userObj, userId).subscribe((res) => {
@@ -44,16 +45,16 @@ export class AuthService {
         });
       })
       .then(() => {
-        this.getUser();
+        this.getUserFromFB();
       })
       .catch((error) => window.alert(error.message));
   }
 
-  signIn(form) {
+  public signIn(form) {
     return this.afAuth
       .signInWithEmailAndPassword(form.email, form.password)
       .then(() => {
-        this.getUser();
+        this.getUserFromFB();
         this.router.navigate(['']);
       })
       .catch((error) => {
@@ -62,12 +63,12 @@ export class AuthService {
   }
 
   // Sign in with Facebook
-  FacebookAuth() {
+  public FacebookAuth() {
     return this.AuthLogin(new firebase.auth.FacebookAuthProvider());
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider) {
+  public AuthLogin(provider) {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
@@ -78,7 +79,7 @@ export class AuthService {
       });
   }
 
-  getUser() {
+  public getUserFromFB() {
     this.afAuth.onAuthStateChanged((user) => {
       if (user) {
         var userId = user.uid;
@@ -92,14 +93,14 @@ export class AuthService {
     });
   }
 
-  setUserInfo(userId) {
+  public setUserInfo(userId) {  
     this.apiUserService.fetchUser(userId).subscribe((User) => {
-      // this.userStore.dispatch(setUser({ User }));
+      // this.userStore.dispatch(setUser({ User })); // store      
       this._userInfo$.next(User);
     });
   }
 
-  signOut() {
+  public signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.setItem('user', '');
       this._userInfo$.next('');
@@ -107,37 +108,10 @@ export class AuthService {
     });
   }
 
-  addToFavouriteDish(dishId, userId): void {
-    let user: User;
-    this.userInfo.subscribe((res) => (user = res));
-
-    if (user.favourites) {
-      user.favourites.push(dishId);
-    } else {
-      user.favourites = [];
-      user.favourites.push(dishId);
-    }
-
-    this.apiUserService.addNewUser(user, userId).subscribe((User) => {
-      this._userInfo$.next({
-        ...this._userInfo$.value,
-        ...User,
-      });
-    });
-  }
-
-  deleteFromFavouriteDish(dishId, userId) {
-    let user: User;
-    this.userInfo.subscribe((res) => (user = res));
-
-    let newUser = user.favourites.filter((item) => item !== dishId);
-    user.favourites = newUser;
-
-    this.apiUserService.addNewUser(user, userId).subscribe((res) => {
-      this._userInfo$.next({
-        ...this._userInfo$.value,
-        ...res,
-      });
+  public updateUserInfo(value) {
+    this._userInfo$.next({
+      ...this._userInfo$.value,
+      ...value,
     });
   }
 }
