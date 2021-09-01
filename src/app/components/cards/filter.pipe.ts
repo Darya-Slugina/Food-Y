@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 
 @Pipe({
   name: 'filter',

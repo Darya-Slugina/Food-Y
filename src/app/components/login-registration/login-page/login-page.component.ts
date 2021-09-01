@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  signinForm: FormGroup;
-  showPassword = false;
+  public signinForm: FormGroup;
+  public showPassword = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -27,16 +27,16 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  toggleShow() {
+  public toggleShow(): void {
     this.showPassword = !this.showPassword;   
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     let form = this.signinForm.value;
     this.authService.signIn(form);
   }
 
-  onFacebookLogin() {
+  public onFacebookLogin(): void {
     this.authService.FacebookAuth()
   }
 }

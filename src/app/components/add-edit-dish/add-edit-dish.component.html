@@ -113,7 +113,7 @@
         formControlName="category"
       >
         <option value="" disabled>Choose a category</option>
-        <option *ngFor="let category of categories" [ngValue]="category" class="option">
+        <option *ngFor="let category of categories" [ngValue]="category">
           {{ category }}
         </option>
       </select>

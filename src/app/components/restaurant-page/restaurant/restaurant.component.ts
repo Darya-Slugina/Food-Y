@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 
 @Component({
@@ -19,8 +19,8 @@ import { FoodService } from 'src/app/shared/services/food.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class RestaurantComponent implements OnInit, OnDestroy {
-  title: string;
   @Output() dishes: Dish[] = [];
+  public title: string;
   private destroy$ = new Subject();
 
   constructor(
@@ -29,7 +29,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.title = this.route.snapshot.paramMap.get('restaurant');
 
     this.service.dishesArray
@@ -43,11 +43,11 @@ export class RestaurantComponent implements OnInit, OnDestroy {
       .subscribe((res) => (this.dishes = res));
   }
 
-  changeRoute() {
+  public changeRoute(): void {
     this.router.navigate([`/restaurant/${this.title}/info`]);
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

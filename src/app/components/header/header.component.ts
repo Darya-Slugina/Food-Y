@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dish } from 'src/app/shared/models/food.model';
-import { User } from 'src/app/shared/models/user.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';
 
@@ -12,8 +12,8 @@ import { FoodService } from 'src/app/shared/services/food.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
-  user: User;
-  isMenuVisible: boolean = false;
+  public user: User;
+  public isMenuVisible: boolean = false;
 
   constructor(
     private service: FoodService,
@@ -30,33 +30,33 @@ export class HeaderComponent implements OnInit {
     this.service._input$.next(inputValue);
   }
 
-  public onHomeClick() {
+  public onHomeClick(): void {
     this.service._isFilterActive$.next(true);
   }
 
-  public onMenuClick() {
+  public onMenuClick(): void {
     this.service._isFilterActive$.next(false);
   }
 
-  public onChatClick() {
+  public onChatClick():void {
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate([`users`]);
   });
   }
 
-  public onImgClick() {
+  public onImgClick(): void {
     this.isMenuVisible = !this.isMenuVisible;
   }
 
-  public onBlur() {
+  public onBlur(): void {
     this.isMenuVisible = false;  
   }
 
-  public onLogOut() {
+  public onLogOut(): void {
     this.authUserService.signOut();
   }
 
-  public onViewProfile() {
+  public onViewProfile(): void {
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate([`users/${this.user.username}`]);
   });
@@ -64,12 +64,12 @@ export class HeaderComponent implements OnInit {
     this.isMenuVisible = false;
   }
 
-  public onEdit() {
+  public onEdit(): void {
     this.router.navigate(['editProfile'])
     this.isMenuVisible = false;
   }
 
-  public onAddDish() {
+  public onAddDish(): void {
     this.router.navigate(['addNewDish'])
     this.isMenuVisible = false;
   }

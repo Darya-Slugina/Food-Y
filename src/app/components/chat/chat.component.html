@@ -1,5 +1,5 @@
 <div class="chat-container">
-  <div *ngIf="chatData" class="message-wrapper">
+  <div *ngIf="chatData.length" class="message-wrapper">
     <div
       *ngFor="let data of chatData"
       [ngClass]="data.from !== loggedInUser.username ? 'right' : 'left'"

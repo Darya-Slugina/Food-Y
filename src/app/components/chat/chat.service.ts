@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { Message } from 'src/app/shared/interfaces/chat-message.interface';
 import { ApiChatService } from 'src/app/shared/services/api-chat.service';
 
-export interface Message {
-  createdAt: number;
-  id: string;
-  from: string;
-  msg: string;
-  toName: string;
-  newMsg: boolean;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +22,10 @@ export class ChatService {
     this.getAllChats();
   }
 
-  getChatData(index) {
+  public getChatData(index): void {
     this.apiChatService
       .getMessagesFromChatroom(index)
       .pipe(
-        filter((res) => res !== null),
         map((res) => {
           this._chat$.next(res);
         })
@@ -41,19 +33,21 @@ export class ChatService {
       .subscribe();
   }
 
-  getAllChats() {
+  public getAllChats(): void {
     this.apiChatService
       .getAllChatrooms()
       .pipe(
         filter((res) => res !== null),
-        map((res) => {
+        map((res) => {  
+          console.log(res);
+                  
           this._allChats$.next(res);
         })
       )
       .subscribe();
   }
 
-  findChatRoom(loggedInUser, username) {
+  public findChatRoom(loggedInUser, username): Observable<string | undefined> {
     return this.allChats.pipe(
       filter((chats) => chats !== null),
       map((chat) => {
@@ -71,7 +65,7 @@ export class ChatService {
     );
   }
 
-  addMessage(message: Message, id: string) {
+  addMessage(message: Message, id: string): void {
     this.apiChatService
       .addMessage(message, id, message.id)
       .subscribe((res: Message) => {
@@ -84,7 +78,7 @@ export class ChatService {
       });
   }
 
-  private getChatsAsArray(food: any) {
+  private getChatsAsArray(food: any): Message[] {
     const resultArr = [];
     for (let prop in food) {
       resultArr.push(food[prop]);

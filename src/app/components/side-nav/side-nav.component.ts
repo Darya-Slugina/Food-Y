@@ -11,12 +11,12 @@ import { FilterRestaurantsPipe } from './filterRestaurants.pipe';
   encapsulation: ViewEncapsulation.None,
 })
 export class SideNavComponent implements OnInit {
-  restaurants: string[];
-  input: string = '';
+  public restaurants: string[];
+  public input: string = '';
 
   constructor(private service: FoodService) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.service.getResaturants().subscribe((res) => this.restaurants = res);
     this.service.inputRes.subscribe((res) => (this.input = res));
   }

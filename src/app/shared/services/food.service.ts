@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, share, shareReplay, tap } from 'rxjs/operators';
 import { DataStorageService } from './api-food.service';
-import { Comment } from 'src/app/shared/models/comment.model';
-import { Dish } from '../models/food.model';
+import { Comment } from '../interfaces/comment.interface';
+import { Dish } from '../interfaces/food.interface';
 // import { Store } from '@ngrx/store'; //store
 // import { addComment, setDishes } from 'src/app/store/food.actions';
 import { AuthService } from './auth.service';
-import { User } from '../models/user.model';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +65,7 @@ export class FoodService {
   //   })
   // }
 
-  public getFoodByRestaurant(restaurant: string): Observable<any> {
+  public getFoodByRestaurant(restaurant: string): Observable<Dish[]> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => {
@@ -77,7 +77,7 @@ export class FoodService {
     );
   }
 
-  public getDishesByUser(username: string): Observable<any> {
+  public getDishesByUser(username: string): Observable<Dish[]> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => {
@@ -89,7 +89,7 @@ export class FoodService {
     );
   }
 
-  public getResaturants() {
+  public getResaturants(): Observable<any> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => {
@@ -100,21 +100,21 @@ export class FoodService {
     );
   }
 
-  public getFoodsByCategory(category: string): Observable<any> {
+  public getFoodsByCategory(category: string): Observable<Dish[]> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => foods.filter((item) => item.category === category))
     );
   }
 
-  public getCurrentDish(dishTitle: string): Observable<any> {
+  public getCurrentDish(dishTitle: string): Observable<Dish> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => foods.find((item) => item.title === dishTitle))
     );
   }
 
-  public getFavouritesDishes(favouriteFoodsId: number[]): Observable<any> {
+  public getFavouritesDishes(favouriteFoodsId: number[]): Observable<Dish[]> {
     return this.dishesArray.pipe(
       filter((foods) => foods !== null),
       map((foods) => foods.filter((item) => favouriteFoodsId.includes(item.id)))
@@ -233,8 +233,8 @@ export class FoodService {
     });
   }
 
-  public getFoodAsArray(food: any) {
-    const resultArr = [];
+  public getFoodAsArray(food: any): Dish[] {
+    const resultArr: Dish[] = [];
     for (let prop in food) {
       resultArr.push(food[prop]);
     }

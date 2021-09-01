@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 
 @Component({
@@ -13,8 +13,8 @@ export class InputComponent implements OnInit {
   @Input() placeholder: string;
   @Input() label: string;
   @Input() inputType: string;
-  isFilterActive: boolean;
-  inputValue: string;
+  public isFilterActive: boolean;
+  public inputValue: string;
 
   constructor(private service: FoodService) {}
 
@@ -23,7 +23,7 @@ export class InputComponent implements OnInit {
     this.inputValue = '';
   }
 
-  onInput(event): void {
+  public onInput(event): void {
     let inputValue = event.target.value;
     if (this.inputType === 'header') {
       this.service._input$.next(inputValue);
@@ -32,7 +32,7 @@ export class InputComponent implements OnInit {
     }
   }
 
-  clearInput(form: NgForm) {
+  public clearInput(form: NgForm): void {
     if (this.inputType === 'header') {
       form.controls['first'].setValue('');
       this.inputValue = '';

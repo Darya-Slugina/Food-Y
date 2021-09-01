@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Comment } from 'src/app/shared/models/comment.model';
-import { Dish } from '../models/food.model';
 import { filter, share } from 'rxjs/operators';
+import { Dish } from '../interfaces/food.interface';
+import {Comment} from '../interfaces/comment.interface'
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(private http: HttpClient) {}
 
-  fetchFoods(): Observable<any> {
-    return this.http.get<any>(
+  public fetchFoods(): Observable<Dish[]> {
+    return this.http.get<Dish[]>(
       'https://foody-21ab7-default-rtdb.europe-west1.firebasedatabase.app/food.json'
     );
   }
@@ -28,8 +28,8 @@ export class DataStorageService {
     );
   }
 
-  addDish(dish: Dish) {
-    return this.http.put(
+  addDish(dish: Dish): Observable<Dish> {
+    return this.http.put<Dish>(
       `https://foody-21ab7-default-rtdb.europe-west1.firebasedatabase.app/food/${dish.title}.json`,
       dish
     );

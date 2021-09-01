@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, shareReplay } from 'rxjs/operators';
-import { User } from 'src/app/shared/models/user.model';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ChatService } from '../chat/chat.service';
@@ -12,12 +12,12 @@ import { ChatService } from '../chat/chat.service';
   styleUrls: ['./all-users.component.scss'],
 })
 export class AllUsersComponent implements OnInit {
-  users: any;
-  selectedItem: number = -1;
-  chatIsActive: boolean = false;
-  activeTab: number = -1;
-  chatWith: string;
-  index: string;
+  public users: User[];
+  public selectedItem: number = -1;
+  public chatIsActive: boolean = false;
+  public activeTab: number = -1;
+  public chatWith: string;
+  public index: string;
   public loggedInUser: User;
 
   constructor(
@@ -40,15 +40,15 @@ export class AllUsersComponent implements OnInit {
     });
   }
 
-  onMouseOver(index: number) {
+  public onMouseOver(index: number): void {
     this.selectedItem = index;
   }
 
-  onMouseOut() {
+  public onMouseOut(): void {
     this.selectedItem = -1;
   }
 
-  onImgClick(username) {
+  public onImgClick(username): void {
     this.router
       .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
       .then(() => {
@@ -59,13 +59,13 @@ export class AllUsersComponent implements OnInit {
       });
   }
 
-  onClick(username, index) {
+  public onClick(username, index): void {
     this.chatIsActive = true;
     this.activeTab = index;
     this.chatWith = username;
     this.chatService
       .findChatRoom(this.loggedInUser.username, this.chatWith)
-      .subscribe((res) => {
+      .subscribe((res) => {        
       if(res){
         this.index = res;
       } else {

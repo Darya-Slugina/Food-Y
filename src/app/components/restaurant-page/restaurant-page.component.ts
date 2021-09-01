@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
+import { RestaurantInfo } from 'src/app/shared/interfaces/restaurant-info.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { RestaurantsService } from 'src/app/shared/services/restaurants.service';
 
@@ -10,8 +11,8 @@ import { RestaurantsService } from 'src/app/shared/services/restaurants.service'
   styleUrls: ['./restaurant-page.component.scss'],
 })
 export class RestaurantPageComponent implements OnInit {
-  dishes: Dish[];
-  columnDefs = [
+  public dishes: Dish[];
+  public columnDefs = [
     {
       headerName: 'Restaurant',
       field: 'restaurant',
@@ -57,8 +58,7 @@ export class RestaurantPageComponent implements OnInit {
       suppressSizeToFit: false,
     },
   ];
-
-  rowData: any[];
+  public rowData: RestaurantInfo[];
 
   constructor(
     private service: FoodService,
@@ -66,14 +66,14 @@ export class RestaurantPageComponent implements OnInit {
     private restarauntService: RestaurantsService
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.service._isFilterActive$.next(false);
     this.restarauntService
       .getDataForRestaurants()
       .subscribe((res) => (this.rowData = res));
   }
 
-  rowClickedEvent(e) {
+  public rowClickedEvent(e): void {
     let restaurant = e.data.restaurant;
     this.router.navigate([`/restaurant/${restaurant}/info`]);
   }

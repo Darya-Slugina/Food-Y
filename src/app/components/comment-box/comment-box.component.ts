@@ -6,8 +6,8 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { Comment } from 'src/app/shared/models/comment.model';
-import { User } from 'src/app/shared/models/user.model';
+import { Comment } from 'src/app/shared/interfaces/comment.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -36,11 +36,11 @@ export class CommentBoxComponent implements OnInit {
       });
   }
 
-  onEditClick(id: string) {
+  onEditClick(id: string): void {
     this.onEdit.emit(id);
   }
 
-  onDeleteClick(id: string) {
+  onDeleteClick(id: string): void {
     this.onDelete.emit(id);
   }
 }

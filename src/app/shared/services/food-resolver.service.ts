@@ -7,7 +7,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Dish } from '../models/food.model';
+import { Dish } from '../interfaces/food.interface';
 import { DataStorageService } from './api-food.service';
 import { FoodService } from './food.service';
 

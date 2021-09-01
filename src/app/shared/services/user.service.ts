@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { User } from '../models/user.model';
+import { User } from '../interfaces/user.interface';
 import { UserStorageService } from './api-user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,11 @@ export class UserService {
     this.getAllUsers();
   }
 
-  public getUser() {
+  public getUser(): Observable<User> {
     return this.authUserService.userInfo.pipe(filter((user) => user !== null));
   }
 
-  public getAllUsers() {
+  public getAllUsers(): void {
     this.apiUserService
       .fetchUsers()
       // .pipe(shareReplay())
@@ -40,14 +40,14 @@ export class UserService {
       });
   }
 
-  public getCurrentUser(username) {
+  public getCurrentUser(username): Observable<User> {
     return this.allUsersArray.pipe(
       filter((users) => users !== null),
       map((users) => users.find((item) => item.username === username))
     );
   }
 
-  public isDishInFavourite(dishId: number) {
+  public isDishInFavourite(dishId: number): Observable<boolean> {
     return this.authUserService.userInfo.pipe(
       filter((user) => user !== null),
       map((user) => {
@@ -74,7 +74,7 @@ export class UserService {
     });
   }
 
-  public deleteFromFavouriteDish(dishId, userId) {
+  public deleteFromFavouriteDish(dishId, userId): void {
     let user: User;
     this.authUserService.userInfo.subscribe((res) => (user = res));
 
@@ -86,7 +86,7 @@ export class UserService {
     });
   }
 
-  public isSelfComment(currentDish) {
+  public isSelfComment(currentDish): Observable<Comment> | Observable<null> {
     return this.authUserService.userInfo.pipe(
       filter((user) => user !== null),
       map((user) => {
@@ -101,7 +101,7 @@ export class UserService {
     );
   }
 
-  public isSelfDish(currentDish) {
+  public isSelfDish(currentDish): Observable<boolean> {
     return this.authUserService.userInfo.pipe(
       filter((user) => user !== null),
       map((user) => {
@@ -119,7 +119,7 @@ export class UserService {
     favourites: number[],
     email: string,
     password: string
-  ) {
+  ): void {
     let newUser = {
       username: userObj.username,
       email: userObj.email,
@@ -156,7 +156,7 @@ export class UserService {
     });
   }
 
-  private getUsersAsArray(users) {
+  private getUsersAsArray(users): User[] {
     const resultArr = [];
     for (let prop in users) {
       resultArr.push(users[prop]);

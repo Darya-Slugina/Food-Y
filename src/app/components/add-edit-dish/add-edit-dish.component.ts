@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { RestaurantsService } from 'src/app/shared/services/restaurants.service';
 
@@ -16,20 +17,20 @@ const maxFileSize = 4000000;
   encapsulation: ViewEncapsulation.None,
 })
 export class AddEditDishComponent implements OnInit {
-  addDishForm: FormGroup;
-  title: string;
-  editMode = false;
-  downloadURL: string;
-  imageFile: File = null;
-  uploadPercent: Observable<number>;
-  percent: number;
-  errorMessage: string = '';
-  defaultCategory: 'main';
+  public addDishForm: FormGroup;
+  public title: string;
+  public editMode: boolean = false;
+  public downloadURL: string;
+  public imageFile: File = null;
+  public uploadPercent: Observable<number>;
+  public percent: number;
+  public errorMessage: string = '';
+  public defaultCategory: 'main';
   public ratingDisplay: number;
-  value: number;
-  dishForEdit: any;
+  public value: number;
+  public dishForEdit: Dish;
 
-  categories: string[] = [
+  public categories: string[] = [
     'Appetizers',
     'Salads',
     'Soup',
@@ -70,7 +71,7 @@ export class AddEditDishComponent implements OnInit {
     this.ratingDisplay = rating;
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     console.log(this.addDishForm.value);
 
     if (this.editMode) {
@@ -86,7 +87,7 @@ export class AddEditDishComponent implements OnInit {
     }
   }
 
-  public onCancel() {
+  public onCancel(): void {
     if (this.editMode) {
       this.router.navigate(['..'], {
         relativeTo: this.route,
@@ -96,7 +97,7 @@ export class AddEditDishComponent implements OnInit {
     }
   }
 
-  public onFileSelected($event) {
+  public onFileSelected($event): void {
     this.errorMessage = '';
     if ($event.target.files.length > 0 && $event.target.files[0] != null) {
       const file = $event.target.files[0];
@@ -109,7 +110,7 @@ export class AddEditDishComponent implements OnInit {
     }
   }
 
-  public uploadImage() {
+  public uploadImage(): void {
     const filePath =
       '/images/' + Math.floor(Math.random() * 100) + this.imageFile.name;
     const fileRef = this.storage.ref(filePath);
@@ -128,8 +129,7 @@ export class AddEditDishComponent implements OnInit {
       .subscribe((res) => console.log(res, 'res'));
   }
 
-  public getAddress(name: string) {
-    console.log(name);
+  public getAddress(name: string): void {
     this.reastaurantsService.getDataForRestaurants().subscribe((res) => {
       let restaurant = res.find(
         (item) => item.restaurant.toLowerCase() === name.toLowerCase()
@@ -141,7 +141,7 @@ export class AddEditDishComponent implements OnInit {
     });
   }
 
-  private initForm() {
+  private initForm(): void {
     const dishObj = {
       dishTitle: '',
       dishRestaurant: '',
@@ -178,7 +178,7 @@ export class AddEditDishComponent implements OnInit {
     this.setFormData(dishObj);
   }
 
-  private setFormData(obj) {
+  private setFormData(obj): void {
     this.addDishForm = new FormGroup({
       title: new FormControl(obj.dishTitle, [
         Validators.required,
@@ -234,14 +234,14 @@ export class AddEditDishComponent implements OnInit {
     return true;
   }
 
-  forbiddenInputs(control: FormControl): { [s: string]: boolean } {
+  private forbiddenInputs(control: FormControl): { [s: string]: boolean } {
     if (control.value.trim().length <= 3) {
       return { nameIsForbidden: true };
     }
     return null;
   }
 
-  forbiddenAddressInput(control: FormControl): { [s: string]: boolean } {
+  private forbiddenAddressInput(control: FormControl): { [s: string]: boolean } {
     let match = control.value.split(',');
     let newArr = [];
 
@@ -260,14 +260,14 @@ export class AddEditDishComponent implements OnInit {
     return null;
   }
 
-  forbiddenTextarea(control: FormControl): { [s: string]: boolean } {
+  private forbiddenTextarea(control: FormControl): { [s: string]: boolean } {
     const replaced = control.value.replace(/[,.\s]/g,"");
     if (replaced.length <= 5) {     
       return { inputIsForbidden: true };
     }
     return null;
   }
-  forbiddenIngredients(control: FormControl): { [s: string]: boolean } {
+  private forbiddenIngredients(control: FormControl): { [s: string]: boolean } {
     const replaced = control.value.replace(/[,.\s]/g,"");
     if (replaced.length <= 5) {     
       return { inputIsForbidden: true };

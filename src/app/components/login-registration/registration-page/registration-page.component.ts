@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./registration-page.component.scss'],
 })
 export class RegistrationPageComponent implements OnInit {
-  signupForm: FormGroup;
-  showPassword = false;
+  public signupForm: FormGroup;
+  public showPassword = false;
   
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,11 +29,11 @@ export class RegistrationPageComponent implements OnInit {
     });
   }
 
-  toggleShow() {
+  public toggleShow(): void {
     this.showPassword = !this.showPassword;   
   }
 
-  onSubmit(){
+  public onSubmit(): void {
     this.authService.signUp(this.signupForm.value);
     this.signupForm.reset();
   }

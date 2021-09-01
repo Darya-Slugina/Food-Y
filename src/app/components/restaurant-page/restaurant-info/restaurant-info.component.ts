@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
+import { RestaurantInfo } from 'src/app/shared/interfaces/restaurant-info.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { RestaurantsService } from 'src/app/shared/services/restaurants.service';
 
@@ -10,9 +11,9 @@ import { RestaurantsService } from 'src/app/shared/services/restaurants.service'
   styleUrls: ['./restaurant-info.component.scss'],
 })
 export class RestaurantInfoComponent implements OnInit {
-  title: string;
-  dishes: Dish[];
-  restaurantsInfo: any;
+  public title: string;
+  public dishes: Dish[];
+  public restaurantInfo: RestaurantInfo;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class RestaurantInfoComponent implements OnInit {
     this.restaurantService
       .getDataForRestaurants()
       .subscribe((res) => {
-        this.restaurantsInfo = res.find(item => item.restaurant === this.title)
+        this.restaurantInfo = res.find(item => item.restaurant === this.title)
       });
   }
 }

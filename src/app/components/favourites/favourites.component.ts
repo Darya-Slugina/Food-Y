@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -72,22 +72,22 @@ export class FavouritesComponent implements OnInit {
       });
   }
 
-  onShowInfo(index) {
+  public onShowInfo(index): void {
     this.isInfoVisible = !this.isInfoVisible;
     this.selectedItem = index;
   }
 
-  onHideInfo() {
+  public onHideInfo(): void {
     this.isInfoVisible = !this.isInfoVisible;
   }
 
-  deleteFromFavourites(dishId) {
+  public deleteFromFavourites(dishId):void {
     let userId = JSON.parse(localStorage.getItem('user'));
     this.userService.deleteFromFavouriteDish(dishId, userId);
     this.isInfoVisible = false;
   }
 
-  sortDishes(prop, type) {
+  public sortDishes(prop, type): void {
     // this.ascendingRating = !this.ascendingRating
     if (prop === 'rating' && type === true) {
       this.favourite.sort((a: Dish, b: Dish) => (a[prop] > b[prop] ? 1 : -1));
@@ -108,7 +108,7 @@ export class FavouritesComponent implements OnInit {
     }
   }
 
-  onCategoryChoise(event) {
+  public onCategoryChoise(event): void {
     let category = event.target.innerText;
     let favourite = this.dishes.filter((item) =>
       this.favouriteFoodsId.includes(item.id)
@@ -134,7 +134,7 @@ export class FavouritesComponent implements OnInit {
   //   }
   // });
 
-  clearFilters() {
+  public clearFilters(): void {
     this.favourite = this.dishes.filter((item) =>
       this.favouriteFoodsId.includes(item.id)
     );
@@ -145,7 +145,7 @@ export class FavouritesComponent implements OnInit {
     // });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

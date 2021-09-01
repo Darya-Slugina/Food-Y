@@ -8,8 +8,8 @@ import { FoodService } from 'src/app/shared/services/food.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  title: string = 'Choose a category and find a dish that suits your taste!';
-  categories: string[] = [
+  public title: string = 'Choose a category and find a dish that suits your taste!';
+  public categories: string[] = [
     'Appetizers',
     'Salads',
     'Soup',
@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     'Sushi',
     'Kids',
   ];
-  category: string = '';
+  public category: string = '';
 
   constructor(private router: Router, private service: FoodService ) {}
 
@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
     this.service._isFilterActive$.next(false);
   }
 
-  onClick(event) {
+  public onClick(event): void {
     this.category = event.target.innerText.toLowerCase();
     this.service._isFilterActive$.next(true);
     this.router.navigate([`/menu/${this.category}`]);

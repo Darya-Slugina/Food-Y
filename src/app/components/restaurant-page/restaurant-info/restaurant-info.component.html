@@ -1,20 +1,20 @@
-<div *ngIf="restaurantsInfo">
+<div *ngIf="restaurantInfo">
   <div class="title">{{ title }}</div>
   <div class="info-container">
     <div class="info-wrapper">
-      <p class="content-title"><span>Address: </span>{{restaurantsInfo.address}}</p>
+      <p class="content-title"><span>Address: </span>{{restaurantInfo.address}}</p>
       <p class="content-title"><span>Average dishes raiting: </span><ngx-stars
         [readonly]="true"
         [size]="1"
         [color]="'#000'"
         [maxStars]="5"
-        [initialStars]="restaurantsInfo.rating"
+        [initialStars]="restaurantInfo.rating"
         [wholeStars]="false"
         [animation]="false"
         [animationSpeed]="200"
       ></ngx-stars
     ></p>
-      <p class="content-title" style="cursor: pointer;" [routerLink]="['/restaurant', restaurantsInfo.restaurant]"><span>Number of posted dishes: </span>{{restaurantsInfo.dishes}}</p>
+      <p class="content-title" style="cursor: pointer;" [routerLink]="['/restaurant', restaurantInfo.restaurant]"><span>Number of posted dishes: </span>{{restaurantInfo.dishes}}</p>
     </div>
 
     <div class="googlemap-wrapper">
@@ -25,7 +25,6 @@
           height="350"
           style="border: 0"
           allowfullscreen=""
-          loading="lazy"
         ></iframe>
       </div>
     </div>

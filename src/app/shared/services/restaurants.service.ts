@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Dish } from '../models/food.model';
+import { Dish } from '../interfaces/food.interface';
+import { RestaurantInfo } from '../interfaces/restaurant-info.interface';
 import { FoodService } from './food.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestaurantsService {
-  dishes: Dish[];
+  public dishes: Dish[];
 
   constructor(private service: FoodService) {}
 
-  getDataForRestaurants() {
+  public getDataForRestaurants(): Observable<RestaurantInfo[]> {
     return this.service.dishesArray.pipe(
       filter((dishes) => dishes !== null),
       map((res) => {

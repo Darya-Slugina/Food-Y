@@ -1,14 +1,11 @@
 import { Component, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Dish } from 'src/app/shared/models/food.model';
-import { Comment } from 'src/app/shared/models/comment.model';
+import { Dish } from '../../shared/interfaces/food.interface';
+import { Comment } from '../../shared/interfaces/comment.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { User } from 'src/app/shared/models/user.model';
-import { filter, map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { DataStorageService } from 'src/app/shared/services/api-food.service';
+import { User } from '../../shared/interfaces/user.interface';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -40,13 +37,17 @@ export class DishComponent implements OnInit {
     private service: FoodService,
     private authUserService: AuthService,
     private userService: UserService
-  ) // private store: Store<{ dishes: Dish[] }>, // store
-  // private userStore: Store<{ user: User }> //store
-  {}
+    ) // private store: Store<{ dishes: Dish[] }>, // store
+    // private userStore: Store<{ user: User }> //store
+    {}
+    
+    ngOnInit() {
+      this.dishTitle = this.route.snapshot.paramMap.get('dish');
+      this.service._isFilterActive$.next(false);
 
-  ngOnInit() {
-    this.dishTitle = this.route.snapshot.paramMap.get('dish');
-
+      this.initAdditionalInfo(this.dishTitle);
+      this.initUser();
+      this.initForm();
     //  ---------------- food resolver ---------------
     // this.route.data.subscribe((data: { dishes: Dish[] }) => {
     //   this.dishes = data.dishes;
@@ -55,42 +56,13 @@ export class DishComponent implements OnInit {
 
     // this.dishes$ = this.store.select('dishes'); // store
 
-    this.service.getCurrentDish(this.dishTitle).subscribe((res) => {
-      this.currentDish = res;
-
-      if (this.currentDish) {
-        this.userService
-          .isDishInFavourite(res.id)
-          .subscribe((res) => (this.isInFavourite = res));
-          
-        this.userService
-          .isSelfComment(this.currentDish)
-          .subscribe((selfComment) => {
-            if (selfComment) {
-              this.isFormVisible = false;
-            }
-          });
-
-        this.userService
-          .isSelfDish(this.currentDish)
-          .subscribe((res) => (this.isEditDishAllow = res));
-      }
-    });
-
-    this.authUserService.userInfo.subscribe((res) => {
-      this.user = res;
-    });
-
-    this.service._isFilterActive$.next(false);
-
-    this.initForm();
   }
 
   public onRatingSet(rating: number): void {
     this.ratingDisplay = rating;
   }
 
-  public onCommentSubmit(title: string, comments: any) {
+  public onCommentSubmit(title: string, comments: any): void {
     let comment = {
       id: Date.now() + this.user.username,
       postedBy: this.user.username,
@@ -117,19 +89,19 @@ export class DishComponent implements OnInit {
     this.editMode = false;
   }
 
-  public editComment() {
+  public editComment(): void {
     this.isFormVisible = true;
     this.editMode = true;
     this.initForm();
   }
 
-  public deleteComment(index) {
+  public deleteComment(index): void {
     this.service.deleteComment(this.dishTitle, index);
     this.commentForm.controls.comment.setValue('');
     this.isFormVisible = true;
   }
 
-  public addToFavourite() {
+  public addToFavourite(): void {
     this.isInFavourite = !this.isInFavourite;
     let userId = JSON.parse(localStorage.getItem('user'));
 
@@ -148,7 +120,7 @@ export class DishComponent implements OnInit {
     }
   }
 
-  public onDeleteDish() {
+  public onDeleteDish(): void {
     let userId = JSON.parse(localStorage.getItem('user')); 
     
     this.service.deleteDish(this.dishTitle);
@@ -156,7 +128,7 @@ export class DishComponent implements OnInit {
     this.router.navigate([''])
   }
 
-  private initForm() {
+  private initForm(): void {
     let commentText = '';
 
     if (this.editMode) {
@@ -168,6 +140,36 @@ export class DishComponent implements OnInit {
 
     this.commentForm = new FormGroup({
       comment: new FormControl(commentText, Validators.required),
+    });
+  }
+
+  private initAdditionalInfo(dishTitle): void {
+    this.service.getCurrentDish(dishTitle).subscribe((res) => {
+      this.currentDish = res;
+
+      if (this.currentDish) {
+        this.userService
+          .isDishInFavourite(res.id)
+          .subscribe((res) => (this.isInFavourite = res));
+          
+        this.userService
+          .isSelfComment(this.currentDish)
+          .subscribe((selfComment) => { 
+            if (selfComment) {
+              this.isFormVisible = false;
+            }
+          });
+
+        this.userService
+          .isSelfDish(this.currentDish)
+          .subscribe((res) => (this.isEditDishAllow = res));
+      }
+    });
+  }
+
+  private initUser(): void {
+    this.authUserService.userInfo.subscribe((res) => {
+      this.user = res;
     });
   }
 }

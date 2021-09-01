@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { Dish } from '../shared/models/food.model';
+import { Dish } from '../shared/interfaces/food.interface';
 import { addComment, filterDishes, setDishes } from './food.actions';
 
 

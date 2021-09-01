@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Dish } from 'src/app/shared/models/food.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { FoodService } from 'src/app/shared/services/food.service';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  category: string;
-  food: Dish[];
-  selectedItem: number = -1;
-  inputValue: string;
+  public category: string;
+  public food: Dish[];
+  public selectedItem: number = -1;
+  public inputValue: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,15 +28,15 @@ export class CategoryComponent implements OnInit {
       this.service.input.subscribe((res) => (this.inputValue = res));
   }
 
-  onMouseOn(index: number) {
+  public onMouseOn(index: number): void {
     this.selectedItem = index;
   }
 
-  onMouseOut(index: number) {
+  public onMouseOut(index: number): void {
     this.selectedItem = -1;
   }
 
-  onClick(title: string) {
+  public onClick(title: string): void {
     this.router.navigate([`/menu/${this.category}/${title}`]);
     this.service._isFilterActive$.next(false);
   }

@@ -3,7 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, finalize } from 'rxjs/operators';
-import { User } from 'src/app/shared/models/user.model';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Location } from '@angular/common';
@@ -26,7 +26,7 @@ export class EditProfileComponent implements OnInit {
   public value: number;
   public emailChangeBox: boolean = false;
   public signinForm: FormGroup;
-  public showPassword = false;
+  public showPassword: boolean = false;
 
   constructor(
     private router: Router,
@@ -49,7 +49,7 @@ export class EditProfileComponent implements OnInit {
     this.service._isFilterActive$.next(false);
   }
 
-  public onSubmit() {
+  public onSubmit():void {
     let favouritesArr;
     if (this.user.favourites) {
       favouritesArr = this.user.favourites;
@@ -68,25 +68,25 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  public onEditEmailSubmit() {
+  public onEditEmailSubmit():void {
     this.emailChangeBox = false;
     console.log(this.signinForm.value.email, this.signinForm.value.password);
   }
 
-  public onEmailCancel() {
+  public onEmailCancel(): void {
     this.emailChangeBox = false;
     this.editForm.get('email').setValue(this.user.email);
   }
 
-  public onCancel() {
+  public onCancel(): void {
     this.location.back();
   }
 
-  public onEmailChange() {
+  public onEmailChange(): void {
     this.emailChangeBox = true;
   }
 
-  public onFileSelected($event) {
+  public onFileSelected($event): void {
     this.errorMessage = '';
     if ($event.target.files.length > 0 && $event.target.files[0] != null) {
       const file = $event.target.files[0];
@@ -98,7 +98,7 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
-  public uploadImage() {
+  public uploadImage(): void {
     const filePath =
       '/avatars/' + Math.floor(Math.random() * 100) + this.imageFile.name;
     const fileRef = this.storage.ref(filePath);
@@ -117,11 +117,11 @@ export class EditProfileComponent implements OnInit {
       .subscribe((res) => console.log(res, 'res'));
   }
 
-  public toggleShow() {
+  public toggleShow(): void {
     this.showPassword = !this.showPassword;
   }
 
-  private initForm() {
+  private initForm(): void {
     const userObj = {
       username: '',
       email: '',
@@ -170,7 +170,7 @@ export class EditProfileComponent implements OnInit {
     this.setFormData(userObj);
   }
 
-  private setFormData(obj) {
+  private setFormData(obj): void {
     this.editForm = new FormGroup({
       username: new FormControl(obj.username, [Validators.required]),
       email: new FormControl(obj.email, [

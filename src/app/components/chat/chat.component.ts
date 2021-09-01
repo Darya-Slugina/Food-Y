@@ -1,9 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { User } from 'src/app/shared/models/user.model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Message } from 'src/app/shared/interfaces/chat-message.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { UserService } from 'src/app/shared/services/user.service';
-import { ChatService, Message } from './chat.service';
+import { ChatService} from './chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -18,6 +21,7 @@ export class ChatComponent implements OnInit {
   public message: Message;
   public chatData: any;
   public isSelfMessage: boolean = false;
+  private destroy$ = new Subject();
 
   constructor(
     private userService: UserService,
@@ -35,7 +39,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     this.message = {
       createdAt: Date.now(),
       id: Date.now() + this.loggedInUser.username,
@@ -46,15 +50,21 @@ export class ChatComponent implements OnInit {
     };
 
     this.chatService.addMessage(this.message, this.index);
-
     this.chatForm.reset();
   }
 
-  private initData() {
+  private initData(): void {
     this.chatService.getChatData(this.index);
     this.userService.getUser().subscribe((res) => (this.loggedInUser = res));
-    this.chatService.chatArray.subscribe((res) => {
+    this.chatService.chatArray.pipe(takeUntil(this.destroy$)).subscribe((res) => { 
+      console.log(res);
+          
       this.chatData = res;
     });
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

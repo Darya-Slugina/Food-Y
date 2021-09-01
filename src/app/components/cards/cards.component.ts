@@ -2,8 +2,8 @@ import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Dish } from 'src/app/shared/models/food.model';
-import { User } from 'src/app/shared/models/user.model';
+import { Dish } from 'src/app/shared/interfaces/food.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { FilterPipe } from './filter.pipe';
@@ -18,12 +18,12 @@ import { FilterPipe } from './filter.pipe';
 export class CardsComponent implements OnInit, OnDestroy {
   @Input() page: string;
   @Input() dishesByRestaurant: Dish[];
-  dishes: Dish[];
-  dishesToShow: Dish[] = [];
-  inputValue: string = '';
-  user: User;
-  step: number = 1;
-  start: number = 0;
+  public dishes: Dish[];
+  public dishesToShow: Dish[] = [];
+  public inputValue: string = '';
+  public user: User;
+  private step: number = 1;
+  private start: number = 0;
   private destroy$ = new Subject();
 
   constructor(
@@ -32,7 +32,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     private userService: AuthService
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.service.input.subscribe((res) => (this.inputValue = res));
     this.userService.userInfo.subscribe((res) => (this.user = res));
     this.inputValue = "";
@@ -54,12 +54,12 @@ export class CardsComponent implements OnInit, OnDestroy {
    
   }
 
-  onClick(category, title) {
+  public onClick(category, title): void {
     this.router.navigate([`/menu/${category}/${title}`]);
     this.service._isFilterActive$.next(false);
   }
 
-  onScroll() {
+  public onScroll(): void {
     if (this.step < this.dishes.length) {
       this.step += 1;
       this.start += 1;
@@ -72,7 +72,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }

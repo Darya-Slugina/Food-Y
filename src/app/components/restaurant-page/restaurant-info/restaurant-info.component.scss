@@ -1,34 +1,50 @@
 .title {
-    font-size: 1.8em;
-    font-family: "Pacifico", cursive;
-    margin: 25px auto;
+  font-size: 1.8em;
+  font-family: "Pacifico", cursive;
+  margin: 25px auto;
 }
 
 .info-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 
-    .info-wrapper {
-        width: 100%;
-        margin-top: 40px;
-        text-align: left;
-        margin-left: 15px;
-        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  .info-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    text-align: left;
+    margin-left: 15px;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 
-          .content-title{
-              display: flex;
-              flex-direction: row;
-              margin-bottom: 20px;
+    .content-title {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
 
-              span {
-                font-family: "Pacifico", cursive;
-                margin-right: 15px;
-              }
-          }
-  
-        
+      span {
+        font-family: "Pacifico", cursive;
+        margin-right: 15px;
       }
+    }
+  }
+
+  .googlemap-wrapper {
+    border: 1px solid rgb(209, 209, 209);
+    background-color: rgb(209, 209, 209);
+    border-radius: 5px;
+    width: 500px;
+    height: 350px;
+    -webkit-box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74);
+    box-shadow: 5px 5px 17px -1px rgba(0, 0, 0, 0.74) !important;
+
+    .iframe-container {
+      border-radius: 5px;
+      overflow: hidden;
+      width: fit-content;
+      display: flex;
+      height: fit-content;
+    }
+  }
 }

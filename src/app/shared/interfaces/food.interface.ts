@@ -1,4 +1,4 @@
-import { Comment } from 'src/app/shared/models/comment.model';
+import { Comment } from 'src/app/shared/interfaces/comment.interface';
 
 export interface Dish {
   id: number;

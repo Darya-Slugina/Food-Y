@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
-import { Dish } from './shared/models/food.model';
+import { Dish } from './shared/interfaces/food.interface';
 
 import { AuthService } from './shared/services/auth.service';
 import { FoodService } from './shared/services/food.service';
@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
     const user = localStorage.getItem('user');
 
     if (user) {
+      console.log(user);
+      
       // this.router.navigate(['']); //не пуска на еррор страница
       this.authUserService.setUserInfo(JSON.parse(user));
     } else {
