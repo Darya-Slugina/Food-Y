@@ -14,6 +14,17 @@ export class RestaurantInfoComponent implements OnInit {
   public title: string;
   public dishes: Dish[];
   public restaurantInfo: RestaurantInfo;
+  public zoom = 17;
+  public center: google.maps.LatLngLiteral;
+  public options: google.maps.MapOptions = {
+    zoomControl: true,
+    scrollwheel: true,
+    disableDoubleClickZoom: false,
+    maxZoom: 25,
+    minZoom: 8,
+  };
+  lat = 42.648400246470246;
+  lng = 23.379120782621452;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,11 +35,22 @@ export class RestaurantInfoComponent implements OnInit {
   ngOnInit() {
     this.service._isFilterActive$.next(false);
     this.title = this.route.snapshot.paramMap.get('restaurant');
+    this.initRestaurant(this.title);
+  }
 
-    this.restaurantService
-      .getDataForRestaurants()
-      .subscribe((res) => {
-        this.restaurantInfo = res.find(item => item.restaurant === this.title)
-      });
+  private initRestaurant(title): void {
+    this.restaurantService.getDataForRestaurants().subscribe((res) => {
+      this.restaurantInfo = res.find((item) => item.restaurant === title);
+      this.initMap();
+    });
+  }
+
+  private initMap(): void {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: this.restaurantInfo.lat,
+        lng: this.restaurantInfo.lng,
+      };
+    });
   }
 }

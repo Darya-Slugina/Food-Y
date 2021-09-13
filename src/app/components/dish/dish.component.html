@@ -99,6 +99,11 @@
       class="border"
       *ngIf="currentDish.comments && currentDish.comments.length"
     >
+    <div class="sorters">
+      <span class="sort-title"> Sort by:</span>
+      <span class="sort-btn" (click)="sortByRating()"><mat-icon>star_half</mat-icon></span>
+      <span class="sort-btn" (click)="sortByDate()"><mat-icon>date_range</mat-icon></span>
+    </div>
       <div *ngFor="let comment of currentDish.comments; let i = index">
         <app-comment-box
           [comment]="comment"

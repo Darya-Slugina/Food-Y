@@ -8,6 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 import { AgGridModule } from 'ag-grid-angular';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -21,18 +22,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 
-//store
-// import { StoreModule } from '@ngrx/store';
-// import { foodsReducer } from './store/food.reducers';
-// import { userReducer } from './store/user.reducers';
-
-//services
-import { UserService } from './shared/services/user.service';
-// import { FoodService } from './shared/services/food.service';
-
 //pipes
 import { FilterRestaurantsPipe } from './components/side-nav/filterRestaurants.pipe';
 import { FilterPipe } from './components/cards/filter.pipe';
+import { FilterUsersPipe } from './components/all-users/filterUsers.pipe';
 
 //components
 import { AppComponent } from './app.component';
@@ -58,11 +51,6 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { ChatComponent } from './components/chat/chat.component';
 
-// let rootReducer = {
-//   dishes: foodsReducer,
-//   user: userReducer,
-// };
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +60,7 @@ import { ChatComponent } from './components/chat/chat.component';
     SideNavComponent,
     FilterPipe,
     FilterRestaurantsPipe,
+    FilterUsersPipe,
     RestaurantComponent,
     InputComponent,
     MenuComponent,
@@ -108,14 +97,14 @@ import { ChatComponent } from './components/chat/chat.component';
     InfiniteScrollModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    // StoreModule.forRoot(rootReducer),
     StoreDevtoolsModule.instrument({
       name: 'FoodY App',
       logOnly: environment.production,
     }),
     AgGridModule.withComponents(),
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

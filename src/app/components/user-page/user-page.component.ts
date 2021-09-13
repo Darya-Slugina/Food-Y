@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ChatService } from '../chat/chat.service';
 
 @Component({
   selector: 'app-user-page',
@@ -17,11 +18,14 @@ export class UserPageComponent implements OnInit {
   public isEditProfileAllow: boolean = false;
   public dishes: Dish[] = [];
   private loggedInUser: User;
+  private index: string;
 
   constructor(
     private service: FoodService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private chatService: ChatService
   ) {}
 
   public ngOnInit(): void {
@@ -31,6 +35,10 @@ export class UserPageComponent implements OnInit {
     this.initUser(this.username);
     this.initDishes(this.username);
     this.isLoggedInUser(this.username);
+  }
+
+  public onStartChat() {
+    this.router.navigate(['/users']);
   }
 
   private initUser(username): void {

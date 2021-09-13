@@ -1,16 +1,10 @@
 import {
-  AfterViewInit,
   Component,
-  OnDestroy,
   OnInit,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Dish } from 'src/app/shared/interfaces/food.interface';
-import { FoodService } from 'src/app/shared/services/food.service';
+
 
 @Component({
   selector: 'app-restaurant',
@@ -18,37 +12,19 @@ import { FoodService } from 'src/app/shared/services/food.service';
   styleUrls: ['./restaurant.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class RestaurantComponent implements OnInit, OnDestroy {
-  @Output() dishes: Dish[] = [];
+export class RestaurantComponent implements OnInit {
   public title: string;
-  private destroy$ = new Subject();
 
   constructor(
     private route: ActivatedRoute,
-    private service: FoodService,
     private router: Router
   ) {}
 
   public ngOnInit(): void {
     this.title = this.route.snapshot.paramMap.get('restaurant');
-
-    this.service.dishesArray
-      .pipe(filter((dishes) => dishes !== null), takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.dishes = res;
-      });
-
-    this.service
-      .getFoodByRestaurant(this.title)
-      .subscribe((res) => (this.dishes = res));
   }
 
   public changeRoute(): void {
     this.router.navigate([`/restaurant/${this.title}/info`]);
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

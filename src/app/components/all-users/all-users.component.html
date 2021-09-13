@@ -1,28 +1,38 @@
 <div class="all-users-container">
   <div class="left">
-    <div *ngFor="let user of users; let i = index" class="user-box">
-      <div
-        class="img-wrapper"
-        (mouseover)="onMouseOver(i)"
-        (mouseleave)="onMouseOut()"
-      >
-        <img src="{{ user.userImg }}" class="img" />
+    <div class="input-wrapper">
+      <app-input
+        placeholder="username"
+        label="Find User"
+        inputType="users"
+      ></app-input>
+    </div>
+    <div *ngIf="users | filterUsers: input as results">
+      <div *ngFor="let user of results; let i = index" class="user-box">
         <div
-          class="eye-wrapper"
-          *ngIf="selectedItem === i"
-          (click)="onImgClick(user.username)"
-          [routerLink]="['/users', user.username]"
+          class="img-wrapper"
+          (mouseover)="onMouseOver(i)"
+          (mouseleave)="onMouseOut()"
         >
-          <mat-icon class="eye">visibility</mat-icon>
+          <img src="{{ user.userImg }}" class="img" />
+          <div
+            class="eye-wrapper"
+            *ngIf="selectedItem === i"
+            (click)="onImgClick(user.username)"
+            [routerLink]="['/users', user.username]"
+          >
+            <mat-icon class="eye">visibility</mat-icon>
+          </div>
         </div>
+        <span
+          class="nickname"
+          (click)="onClick(user.username, i)"
+          [ngClass]="activeTab === i ? 'active' : null"
+        >
+          @ {{ user.username }}
+        </span>
       </div>
-      <span
-        class="nickname"
-        (click)="onClick(user.username, i)"
-        [ngClass]="activeTab === i ? 'active' : null"
-      >
-        @ {{ user.username }}
-      </span>
+      <span *ngIf="results.length === 0">No such Users!</span>
     </div>
   </div>
 

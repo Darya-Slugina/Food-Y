@@ -10,6 +10,12 @@
       [routerLink]="'./edit'"
       >edit</mat-icon
     >
+    <mat-icon
+      *ngIf="!isEditProfileAllow"
+      class="edit-icon"
+      (click)="onStartChat()"
+      >near_me</mat-icon
+    >
     <div class="left">
       <div class="avatar-wrapper">
         <img src="{{ user.userImg }}" class="avatar" />
@@ -36,6 +42,10 @@
   </div>
   <div class="title" *ngIf="dishes.length">My Dishes:</div>
   <div *ngIf="dishes.length" class="dishes-container">
-    <img *ngFor="let item of dishes" src={{item.img}} [routerLink]="['/menu', item.category, item.title]">
+    <img
+      *ngFor="let item of dishes"
+      src="{{ item.img }}"
+      [routerLink]="['/menu', item.category, item.title]"
+    />
   </div>
 </div>

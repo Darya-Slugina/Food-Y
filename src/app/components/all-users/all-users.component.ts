@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ChatService } from '../chat/chat.service';
+import { FilterUsersPipe } from './filterUsers.pipe';
 
 @Component({
   selector: 'app-all-users',
   templateUrl: './all-users.component.html',
   styleUrls: ['./all-users.component.scss'],
+  providers: [FilterUsersPipe],
 })
 export class AllUsersComponent implements OnInit {
   public users: User[];
@@ -19,6 +20,7 @@ export class AllUsersComponent implements OnInit {
   public chatWith: string;
   public index: string;
   public loggedInUser: User;
+  public input: string = '';
 
   constructor(
     private userService: UserService,
@@ -29,6 +31,7 @@ export class AllUsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.service.inputUsers.subscribe((res) => (this.input = res));
     this.userService.getUser().subscribe((res) => {
       this.loggedInUser = res;
       this.userService.allUsersArray.subscribe((res) => {

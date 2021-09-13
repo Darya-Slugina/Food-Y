@@ -14,7 +14,6 @@ import { UserService } from 'src/app/shared/services/user.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FavouritesComponent implements OnInit {
-  // public dishes$: Observable<Dish[]> = of([]); // store
   public favouriteFoodsId: number[];
   public dishes: Dish[];
   public favourite: Dish[];
@@ -27,13 +26,13 @@ export class FavouritesComponent implements OnInit {
   public ascendingPrice: boolean = true;
   public ascendingTitle: boolean = true;
   public toggleCategory: boolean = false;
-  message: string = '';
+  public message: string = '';
   private destroy$ = new Subject();
 
   constructor(
     private authUserService: AuthService,
     private service: FoodService,
-    private route: ActivatedRoute, // private store: Store<{ dishes: Dish[] }> //store
+    private route: ActivatedRoute,
     private userService: UserService
   ) {}
 
@@ -120,19 +119,6 @@ export class FavouritesComponent implements OnInit {
       this.favourite = filtering;
     }
   }
-
-  // ------- With store ---------
-  // let favourite = [];
-  // let filtering = [];
-  // this.dishes$.subscribe((res) => {
-  //   favourite = res.filter((item) => this.food.includes(item.id));
-  //   filtering = favourite.filter((dish) => dish.category === category);
-  //   if (category === 'none') {
-  //     this.favourite = favourite;
-  //   } else {
-  //     this.favourite = filtering;
-  //   }
-  // });
 
   public clearFilters(): void {
     this.favourite = this.dishes.filter((item) =>

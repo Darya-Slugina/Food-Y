@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dish } from 'src/app/shared/interfaces/food.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';

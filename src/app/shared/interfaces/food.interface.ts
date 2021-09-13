@@ -9,6 +9,8 @@ export interface Dish {
   currency: string;
   restaurant: string;
   location: string;
+  lat:number;
+  lng: number;
   rating: number;
   category: string;
   description: string;

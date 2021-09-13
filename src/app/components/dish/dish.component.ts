@@ -12,7 +12,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   selector: 'app-dish',
   templateUrl: './dish.component.html',
   styleUrls: ['./dish.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
 })
 export class DishComponent implements OnInit {
   public dishTitle: string;
@@ -28,8 +28,6 @@ export class DishComponent implements OnInit {
   @Output() isFormVisible: boolean = true;
   @Output() comment: Comment;
   @Output() user: User;
-  // public dishes$: Observable<Dish[]> = of([]);
-  // public user$: Observable<User> = of();
 
   constructor(
     private route: ActivatedRoute,
@@ -37,25 +35,15 @@ export class DishComponent implements OnInit {
     private service: FoodService,
     private authUserService: AuthService,
     private userService: UserService
-    ) // private store: Store<{ dishes: Dish[] }>, // store
-    // private userStore: Store<{ user: User }> //store
-    {}
-    
-    ngOnInit() {
-      this.dishTitle = this.route.snapshot.paramMap.get('dish');
-      this.service._isFilterActive$.next(false);
+  ) {}
 
-      this.initAdditionalInfo(this.dishTitle);
-      this.initUser();
-      this.initForm();
-    //  ---------------- food resolver ---------------
-    // this.route.data.subscribe((data: { dishes: Dish[] }) => {
-    //   this.dishes = data.dishes;
-    //   console.log(this.dishes, "dishes fro dish");
-    // });
+  ngOnInit() {
+    this.dishTitle = this.route.snapshot.paramMap.get('dish');
+    this.service._isFilterActive$.next(false);
 
-    // this.dishes$ = this.store.select('dishes'); // store
-
+    this.initAdditionalInfo(this.dishTitle);
+    this.initUser();
+    this.initForm();
   }
 
   public onRatingSet(rating: number): void {
@@ -121,11 +109,23 @@ export class DishComponent implements OnInit {
   }
 
   public onDeleteDish(): void {
-    let userId = JSON.parse(localStorage.getItem('user')); 
-    
+    let userId = JSON.parse(localStorage.getItem('user'));
+
     this.service.deleteDish(this.dishTitle);
     this.userService.deleteFromFavouriteDish(this.currentDish.id, userId);
-    this.router.navigate([''])
+    this.router.navigate(['']);
+  }
+
+  public sortByRating(): void {
+    this.currentDish.comments.sort((a: Comment, b: Comment) =>
+      a.rating > b.rating ? 1 : -1
+    );
+  }
+
+  public sortByDate(): void {
+    this.currentDish.comments.sort((a: Comment, b: Comment) =>
+    a.postedOn > b.postedOn ? 1 : -1
+  );
   }
 
   private initForm(): void {
@@ -151,10 +151,10 @@ export class DishComponent implements OnInit {
         this.userService
           .isDishInFavourite(res.id)
           .subscribe((res) => (this.isInFavourite = res));
-          
+
         this.userService
           .isSelfComment(this.currentDish)
-          .subscribe((selfComment) => { 
+          .subscribe((selfComment) => {
             if (selfComment) {
               this.isFormVisible = false;
             }

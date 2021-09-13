@@ -23,6 +23,8 @@ export class RestaurantsService {
 
         let ratings = [];
         let addresses = [];
+        let lat = [];
+        let lng = [];
         let count = [];
         this.dishes.forEach((item) => {
           if (ratings[item.restaurant] === undefined) {
@@ -31,9 +33,11 @@ export class RestaurantsService {
           if (count[item.restaurant] === undefined) {
             count[item.restaurant] = [];
           }
-          
+
           ratings[item.restaurant].push(item.rating);
           addresses[item.restaurant] = item.location;
+          lat[item.restaurant] = item.lat;
+          lng[item.restaurant] = item.lng;
           count[item.restaurant].push(item.title);
         });
 
@@ -45,6 +49,8 @@ export class RestaurantsService {
           let newObj = {
             restaurant: restarantName,
             address: addresses[restarantName],
+            lat: lat[restarantName],
+            lng: lng[restarantName],
             rating: avgRating.toFixed(1),
             dishes: count[restarantName].length,
           };

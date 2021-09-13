@@ -25,6 +25,9 @@ export class FoodService {
   public _inputRes$ = new BehaviorSubject<any>(null);
   public readonly inputRes = this._inputRes$.asObservable();
 
+  public _inputUsers$ = new BehaviorSubject<any>(null);
+  public readonly inputUsers = this._inputUsers$.asObservable();
+
   public _isFilterActive$ = new BehaviorSubject<any>(true);
   public readonly isFilterActive = this._isFilterActive$.asObservable();
 
@@ -165,6 +168,8 @@ export class FoodService {
       currency: 'lv',
       restaurant: dish.restaurant,
       location: dish.address,
+      lat: dish.lat,
+      lng: dish.lng,
       rating: dish.rating,
       category: dish.category.toLowerCase(),
       description: dish.description,
@@ -200,6 +205,8 @@ export class FoodService {
       currency: 'lv',
       restaurant: dish.restaurant,
       location: dish.address,
+      lat: dish.lat,
+      lng: dish.lng,
       rating: dish.rating,
       category: dish.category,
       description: dish.description,

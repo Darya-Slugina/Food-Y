@@ -17,12 +17,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class CommentBoxComponent implements OnInit {
-  public isButtonVisible: boolean;
-  user: User;
   @Input() comment: Comment;
   @Output() onEdit = new EventEmitter();
   @Output() onDelete = new EventEmitter();
-
+  public isButtonVisible: boolean;
+  public user: User;
+  
   constructor(private authUserService: AuthService) {}
 
   ngOnInit() {

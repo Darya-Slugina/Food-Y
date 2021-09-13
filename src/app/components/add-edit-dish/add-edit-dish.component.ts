@@ -137,6 +137,8 @@ export class AddEditDishComponent implements OnInit {
       if (restaurant) {
         console.log(restaurant.address);
         this.addDishForm.controls['address'].setValue(restaurant.address);
+        this.addDishForm.controls['lat'].setValue(restaurant.lat);
+        this.addDishForm.controls['lng'].setValue(restaurant.lng);
       }
     });
   }
@@ -146,6 +148,8 @@ export class AddEditDishComponent implements OnInit {
       dishTitle: '',
       dishRestaurant: '',
       dishAddress: '',
+      dishLat: null,
+      dishLng: null,
       dishImg: '',
       dishPrice: null,
       dishRating: null,
@@ -162,6 +166,8 @@ export class AddEditDishComponent implements OnInit {
         dishObj.dishTitle = dish.title;
         dishObj.dishRestaurant = dish.restaurant;
         dishObj.dishAddress = dish.location;
+        dishObj.dishLat = dish.lat;
+        dishObj.dishLng = dish.lng;
         dishObj.dishImg = dish.img;
         dishObj.dishPrice = dish.price;
         dishObj.dishRating = dish.rating;
@@ -198,13 +204,21 @@ export class AddEditDishComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50),
         Validators.minLength(10),
-        Validators.pattern("^[a-zA-Z0-9 -',]+"),
+        Validators.pattern("^[a-zA-Z0-9 -',.]+"),
         this.forbiddenAddressInput.bind(this),
+      ]),
+      lat: new FormControl(obj.dishLat, [
+        Validators.required,
+        Validators.pattern('[0-9][0-9.]*[0-9]'),
+      ]),
+      lng: new FormControl(obj.dishLng, [
+        Validators.required,
+        Validators.pattern('[0-9][0-9.]*[0-9]'),
       ]),
       img: new FormControl(obj.dishImg, [Validators.required]),
       price: new FormControl(obj.dishPrice, [
         Validators.required,
-        Validators.pattern('^([1-9][0-9]{0,2})$'),
+        Validators.pattern('^[0-9][0-9]*[.]?[0-9]{0,2}$'),
       ]),
       rating: new FormControl(obj.dishRating, [
         Validators.required,

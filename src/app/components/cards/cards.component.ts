@@ -1,9 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Dish } from 'src/app/shared/interfaces/food.interface';
-import { User } from 'src/app/shared/interfaces/user.interface';
+import { Dish } from '../../shared/interfaces/food.interface';
+import { User } from '../../shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { FilterPipe } from './filter.pipe';
@@ -22,6 +28,7 @@ export class CardsComponent implements OnInit, OnDestroy {
   public dishesToShow: Dish[] = [];
   public inputValue: string = '';
   public user: User;
+  public restaurant: string;
   private step: number = 1;
   private start: number = 0;
   private destroy$ = new Subject();
@@ -29,29 +36,20 @@ export class CardsComponent implements OnInit, OnDestroy {
   constructor(
     private service: FoodService,
     private router: Router,
+    private route: ActivatedRoute,
     private userService: AuthService
   ) {}
 
   public ngOnInit() {
     this.service.input.subscribe((res) => (this.inputValue = res));
     this.userService.userInfo.subscribe((res) => (this.user = res));
-    this.inputValue = "";
+    this.inputValue = '';
 
-    if(this.page === 'home'){
-      this.service.dishesArray
-      .pipe(filter((dishes) => dishes !== null), takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.dishes = res;
-        if (this.dishes.length) {
-          for (let i = this.start; i < this.step; i++) {
-            this.dishesToShow.push(this.dishes[i]);
-          }
-        }
-      });
+    if (this.page === 'home') {
+      this.initDishes();
     } else {
-      this.dishesToShow = this.dishesByRestaurant
+      this.initDishesByRestaurant();
     }
-   
   }
 
   public onClick(category, title): void {
@@ -72,7 +70,30 @@ export class CardsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
+  private initDishes(): void {
+    this.service.dishesArray
+    .pipe(
+      filter((dishes) => dishes !== null),
+      takeUntil(this.destroy$)
+    )
+    .subscribe((res) => {
+      this.dishes = res;
+      if (this.dishes.length) {
+        for (let i = this.start; i < this.step; i++) {
+          this.dishesToShow.push(this.dishes[i]);
+        }
+      }
+    });
+  }
+
+  private initDishesByRestaurant(): void {
+    this.restaurant = this.route.snapshot.paramMap.get('restaurant');
+    this.service.getFoodByRestaurant(this.restaurant).subscribe((res) => {
+      this.dishesToShow = res;
+    });
+  }
+
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

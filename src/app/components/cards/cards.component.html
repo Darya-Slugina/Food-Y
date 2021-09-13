@@ -1,8 +1,8 @@
 <div
-  *ngIf="dishesToShow| filter: inputValue as results"
+  *ngIf="dishesToShow | filter: inputValue as results"
   class="cards-container"
 >
-  <mat-card  *ngFor="let item of results">
+  <mat-card *ngFor="let item of results">
     <div class="header-info-wrapper">
       <div class="header-info">
         <mat-card-title
@@ -59,7 +59,7 @@
       </div>
     </div>
   </mat-card>
-  <div *ngIf="results.length === 0" class="noItemInfo">
+  <div *ngIf="results.length === 0 && dishes" class="noItemInfo">
     Sorry, No dishes found!
   </div>
 </div>

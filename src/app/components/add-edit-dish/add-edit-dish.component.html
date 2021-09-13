@@ -37,6 +37,26 @@
       />
     </div>
     <div class="row">
+      <label for="lat" class="form-label">Lat:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="lat"
+        formControlName="lat"
+        placeholder="Enter lat"
+      />
+    </div>
+    <div class="row">
+      <label for="lng" class="form-label">Lng:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="lng"
+        formControlName="lng"
+        placeholder="Enter lng"
+      />
+    </div>
+    <div class="row">
       <label for="imageUpload" class="form-label">Image Upload</label>
       <div class="uploader">
         <div class="btn">
@@ -86,6 +106,9 @@
       <label for="price" class="form-label">Price</label>
       <input
         type="number"
+        step="0.01" 
+        min="0"
+        max='1000'
         name="price"
         id="price"
         class="form-control"
